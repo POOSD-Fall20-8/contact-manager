@@ -1,6 +1,6 @@
 <?php
 	function getRequestInfo(){
-		return json_decode(file_get_contents('php://input'), true);
+		return json_decode(file_get_contents('php://input'));
 	}
 
 	function sendResultInfoAsJson( $obj ){
@@ -17,23 +17,27 @@
 		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
+		
+	$inData = getRequestInfo();			
 
-	$inData = getRequestInfo();
-
+	$login = $inData->login;
+	$password = $inData->password;
+	
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	else{
-		$sql = "SELECT user_id,first_name,last_name FROM users where login='" . $inData["login"] . "' and password='" . $inData["password"] . "'";
+		$sql = "SELECT user_id,first_name,last_name FROM users where login='" . $login . "' and password='" . $password . "'";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0){
 			$row = $result->fetch_assoc();
-			returnWithInfo($row["first_name"], $row["last_name", $row["user_id"] );
+			returnWithInfo($row[first_name], $row[last_name], $row[user_id] );
 		}
 		else{
 			returnWithError( "No Records Found" );
 		}
 	}
 	$conn->close();
+	
 ?>

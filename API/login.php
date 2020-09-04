@@ -9,20 +9,20 @@
 	}
 
 	function returnWithError( $err ){
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"user_id":0,"first_name":"","last_name":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $firstName, $lastName, $id ){
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+	function returnWithInfo( $first, $last, $id ){
+		$retValue = '{"user_id":' . $id . ',"first_name":"' . $first . '","last_name":"' . $last . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-		
-	$inData = getRequestInfo();			
+
+	$inData = getRequestInfo();
 
 	$login = $inData->login;
 	$password = $inData->password;
-	
+
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
@@ -39,5 +39,5 @@
 		}
 	}
 	$conn->close();
-	
+
 ?>

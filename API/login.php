@@ -5,8 +5,8 @@
     if($conn->connect_error){
       returnWithError($conn->connect_error);
     }
-    $login = RickL;
-    $pass = COP4331;
+    $login = $inData[login];
+    $pass = $inData[password];
 
 		$sql = "SELECT user_id,first_name,last_name FROM users where login='" . $login. "' and password='" . $pass . "'";
 

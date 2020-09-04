@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html>
-<body>
 <?php
+
+    $inData = getRequestInfo();
     $conn = new mysqli("localhost","dbadmin","dbpass","ContactManager");
     if($conn->connect_error){
-        echo "error connecting to database\n";
+      returnWithError($conn->connect_error);
     }
     $login = RickL;
     $pass = COP4331;
@@ -14,10 +13,9 @@
     $result = $conn->query($sql);
     if ($result->num_rows > 0){
         $row = $result->fetch_assoc();
-        echo "Name: " . $row[first_name] . " " . $row[last_name];
+        returnWithInfo($row["first_name"],$row["last_name"],$row["user_id"])
     }
     $conn->close();
-
 
 		function getRequestInfo()
 		{
@@ -41,5 +39,3 @@
 			sendResultInfoAsJson( $retValue );
 		}
 ?>
-</body>
-</html>

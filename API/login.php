@@ -28,14 +28,20 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
-		$sql = "SELECT user_id,first_name,last_name FROM users where login='" . $login . "' and password='" . $password . "'";
+		$sql = "SELECT user_id,first_name,last_name,password FROM users where login='" . $login . "' and password='" . $password . "'";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0){
 			$row = $result->fetch_assoc();
 			returnWithInfo($row[first_name], $row[last_name], $row[user_id] );
 		}
 		else{
-			returnWithError( "No Records Found" );
+			$sql = "SELECT user_id from users where login='" . $login "'";
+			if ($result->num_rows > 0){
+				returnWithError("Incorrect Password");
+			}
+			else{
+				returnWithError("No Account Found");
+			}
 		}
 	}
 	$conn->close();

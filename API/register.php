@@ -30,7 +30,7 @@
     	returnWithError("Login Already Used");
     }
     else{
-    	$sql = "INSERT INTO users (login,password,first_name,last_name) VALUES ('" . $login . "','" . $password . "','" . $first_name . "','" . $last_name . "')";
+    	$sql = "INSERT INTO users (login,password,first_name,last_name) VALUES (' . $login . ',' . $password . ',' . $first_name . ',' . $last_name . ')";
 			$result = $conn->query($sql);
 			if( $result != TRUE ){
 				returnWithError( $conn->error );

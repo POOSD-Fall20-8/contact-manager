@@ -1,12 +1,5 @@
 <?php
-	function getRequestInfo(){
-		return json_decode(file_get_contents('php://input'));
-	}
-
-	function sendResultInfoAsJson( $obj ){
-		header('Content-type: application/json');
-		echo $obj;
-	}
+	include 'utils.php';
 
 	function returnWithError( $err ){
 		$retValue = '{"user_id":0,"first_name":"","last_name":"","error":"' . $err . '"}';
@@ -28,7 +21,7 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
-		$sql = "SELECT user_id,first_name,last_name,password FROM users where login='" . $login . "'";
+		$sql = "SELECT user_id,first_name,last_name,password FROM users WHERE login='" . $login . "'";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0){
 			$row = $result->fetch_assoc();
@@ -42,7 +35,7 @@
 		else{
 				returnWithError("No Account Found");
 		}
+		$conn->close();
 	}
-	$conn->close();
 
 ?>

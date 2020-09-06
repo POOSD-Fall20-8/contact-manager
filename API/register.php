@@ -29,17 +29,16 @@
     if($result->num_rows > 0){
     	returnWithError("Login Already Used");
     }
-    else
+    else{
     	$sql = "INSERT INTO users (login,password,first_name,last_name) VALUES ('" . $login . "','" . $password . "','" . $first_name . "','" . $last_name . "')";
 			$result = $conn->query($sql);
-			if( $result != TRUE )
-			{
+			if( $result != TRUE ){
 				returnWithError( $conn->error );
 			}
 			else {
-				returnWithInfo()
+				returnWithInfo($login);
 			}
     }
-	$conn->close();
-
+		$conn->close();
+	}
 ?>

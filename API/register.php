@@ -29,15 +29,14 @@
 	}
 	else{
 		$sql = "SELECT user_id FROM users where login='" . $login . "';
-        $result = $conn->query($sql);
-        $row = $result->fetch_assoc();
-        if($login == $row[user_id]){
-            echo "Username already exists";
+        	$result = $conn->query($sql);
+        	$row = $result->fetch_assoc();
+        	if($login == $row[user_id]){
+            		echo "Username already exists";
+        	}
+        	else
+            		$sql = "INSERT INTO ContactManager (username, password) VALUES ($login, $password)";
         }
-        else
-            $sql = "INSERT INTO ContactManager (username, password) VALUES ($login, $password)";
-        
-	}
 	$conn->close();
 
 ?>

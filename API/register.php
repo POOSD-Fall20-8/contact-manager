@@ -3,7 +3,7 @@
 	include 'utils.php';
 
 	function returnWithError( $err ){
-		$retValue = '{"login":"","error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
@@ -23,28 +23,29 @@
 	if (($login == "") || ($password == "")){
 		returnWithError("Login and password required");
 	}
-
-	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
-	if ($conn->connect_error){
-		returnWithError( $conn->connect_error );
-	}
 	else{
-		$sql = "SELECT user_id FROM users where login='" . $login . "'";
-    $result = $conn->query($sql);
-    if($result->num_rows > 0){
-    	returnWithError("Login Already Used");
-    }
-    else{
-		$sql = "INSERT INTO users (login,password,first_name,last_name) VALUES ('" . $login . "','" . $password . "','" . $first_name . "','" . $last_name . "')";
-			$result = $conn->query($sql);
-			if( $result == TRUE ){
-				returnWithInfo($login);
-			}
-			else {
-				returnWithError( $conn->error);
-			}
+		$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
+		if ($conn->connect_error){
+			returnWithError( $conn->connect_error );
+		}
+		else{
+			$sql = "SELECT user_id FROM users where login='" . $login . "'";
+	    $result = $conn->query($sql);
+	    if($result->num_rows > 0){
+	    	returnWithError("Login Already Used");
+	    }
+	    else{
+			$sql = "INSERT INTO users (login,password,first_name,last_name) VALUES ('" . $login . "','" . $password . "','" . $first_name . "','" . $last_name . "')";
+				$result = $conn->query($sql);
+				if( $result == TRUE ){
+					returnWithInfo($login);
+				}
+				else {
+					returnWithError( $conn->error);
+				}
 
-    }
-		$conn->close();
+	    }
+			$conn->close();
+		}
 	}
 ?>

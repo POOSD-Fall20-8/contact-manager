@@ -19,6 +19,11 @@
 	$first_name = $inData->first_name;
 	$last_name = $inData->last_name;
 
+
+	if (($login == "") || ($password == "")){
+		returnWithError("Login and password required");
+	}
+
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
@@ -33,7 +38,7 @@
 		$sql = "INSERT INTO users (login,password,first_name,last_name) VALUES ('" . $login . "','" . $password . "','" . $first_name . "','" . $last_name . "')";
 			$result = $conn->query($sql);
 			if( $result == TRUE ){
-				returnWithInfo($login);			
+				returnWithInfo($login);
 			}
 			else {
 				returnWithError( $conn->error);

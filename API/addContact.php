@@ -26,7 +26,7 @@
 	}
 	else{
 		$sql = "INSERT INTO contacts (address,email,first_name,last_name,phone,user_id,date_added)".
-						" VALUES '". $address . "','". $email . "', '". $first_name ."','" . $last_name ."','".
+						" VALUES ('". $address . "','". $email . "', '". $first_name ."','" . $last_name ."','".
 						$phone ."','". $user_id . "', NOW())";
 		$result = $conn->query($sql);
 		if(result == TRUE){

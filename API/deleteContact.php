@@ -28,7 +28,7 @@
 			returnSuccess();
 		}
 		else{
-			returnWithError($conn->error);
+			returnWithError("Record Not Found");
 		}
 		$conn->close();
 	}

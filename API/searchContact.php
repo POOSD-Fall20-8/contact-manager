@@ -29,7 +29,7 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
-		$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM users WHERE ".
+		$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM contacts WHERE ".
 		"first_name LIKE '%". $search."%' OR last_name LIKE '%". $search."%' OR " .
 		"email LIKE '%". $search."%' OR phone LIKE '%". $search."%' OR address LIKE '%". $search."%' ".
 		"OR record_id='".$search."' AND user_id='".$user_id."'";

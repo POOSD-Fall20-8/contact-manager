@@ -13,30 +13,32 @@
 
 	$inData = getRequestInfo();
 
-	$address = $inData->address;
-	$email = $inData->email;
+
+
 	$first_name = $inData->first_name;
 	$last_name = $inData->last_name;
+	$email = $inData->email;
 	$phone = $inData->phone;
+	$address = $inData->address;
 	$user_id = $inData->user_id;
 	$record_id = $inData->record_id;
 
 	$sql = "UPDATE contacts SET ";
 
-	if ($address != ""){
-		$sql .= "address = '".$address."',";
-	}
-	if ($email != ""){
-		$sql .= "email = '" . $email ."',";
-	}
 	if ($first_name != ""){
 		$sql .= "first_name = '" . $first_name ."',";
 	}
 	if ($last_name != ""){
 		$sql .= "last_name = '" . $last_name ."',";
 	}
+	if ($email != ""){
+		$sql .= "email = '" . $email ."',";
+	}
 	if ($phone != ""){
 		$sql .= "phone = '" . $phone ."',";
+	}
+	if ($address != ""){
+		$sql .= "address = '".$address."',";
 	}
 
 	if (substr($sql,-1) == ","){

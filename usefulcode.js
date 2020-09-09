@@ -45,12 +45,12 @@ function createLogin(){
       return;
     }
 
+    alert(document.getElementById("loginResult").innerHTML);
 	}
 
   catch(err)
 {
   document.getElementById("loginResult").innerHTML = err.message;
-  alert(document.getElementById("loginResult").innerHTML);
 }
 
 }

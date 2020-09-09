@@ -27,26 +27,27 @@ function doLogin(){
 		if(error == "")
 		{
 			document.getElementById("loginResult").innerHTML = "success logging in, welcome " + jsonObject.first_name;
-			return;
+			return false;
 		}
 
     if(error == "No Account Found")
     {
       document.getElementById("loginResult").innerHTML = "error: no user found";
-      return;
+      return false;
     }
 
     if(error == "Incorrect Password")
     {
       document.getElementById("loginResult").innerHTML = "error: incorrect password";
-      return;
-    }
+      return false;
+	}
 
 	}
 
   catch(err)
 {
   document.getElementById("loginResult").innerHTML = err.message;
+  return false;
 }
 
 }
@@ -75,19 +76,19 @@ function createLogin(){
 		if(error == "")
 		{
 			document.getElementById("createResult").innerHTML = "success creating account";
-			return;
+			return false;
 		}
 
     if(error == "Login Already Used")
     {
       document.getElementById("createResult").innerHTML = "user already exists";
-      return;
+      return false;
     }
 
     if(error == "Login and password required")
     {
       document.getElementById("createResult").innerHTML = "login and password required to create account";
-      return;
+      return false;
     }
 
 	}
@@ -95,6 +96,7 @@ function createLogin(){
   catch(err)
 {
   document.getElementById("createResult").innerHTML = err.message;
+  return false;
 }
 
 }

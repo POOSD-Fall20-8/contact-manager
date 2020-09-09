@@ -86,6 +86,11 @@ div {
 }
 
 /*CSS FOR CREATE*/
+#create p{
+  color:red;
+  font-family: cursive;
+}
+
 #create h1{
   color:white;
   font-family: cursive;

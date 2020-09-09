@@ -28,9 +28,9 @@
 	}
 	else{
 		$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM users WHERE ".
-		"first_name like '%". $search."%' OR last_name like '%". $search."%' OR " .
-		"email like '%". $search."%' OR phone like '%". $search."%' OR address like '%". $search."%' ".
-		"OR record_id='".$search."' AND user_id = '".$user_id."'";
+		"first_name LIKE '%". $search."%' OR last_name LIKE '%". $search."%' OR " .
+		"email LIKE '%". $search."%' OR phone LIKE '%". $search."%' OR address LIKE '%". $search."%' ".
+		"OR record_id='".$search."' AND user_id='".$user_id."'";
 		$result = $conn->query($sql);
 		if ($result->numRows > 0){
 			$matched = '[';

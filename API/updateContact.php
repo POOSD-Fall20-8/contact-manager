@@ -1,7 +1,7 @@
 <?php
 	include 'utils.php';
 
-	function returnWithError($id, $err ){
+	function returnWithError($err ){
 		$retValue = '{"record_id":"'. $id .'","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}

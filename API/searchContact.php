@@ -10,7 +10,7 @@
 	function buildJSON( $first_name,$last_name,$email, $phone,$address,$record_id ){
 		$retValue = '{"first_name":"'. $first_name .'","last_name":"'. $last_name .'",' .
 			'"email":"'. $email .'","phone":"'. $phone .'","address":"'. $address .'",'.
-			'"record_id":"'. $record_id .'","error":""}';
+			'"record_id":"'. $record_id .'"}';
 		return $retValue;
 	}
 

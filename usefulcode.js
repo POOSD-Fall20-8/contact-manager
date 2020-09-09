@@ -2,14 +2,59 @@ var urlBegin = 'http://contactmanageronline.com/API';
 var urlEnding = '.php';
 
 function doLogin(){
+
   var user = document.getElementById("loginName").value;
   var pass = document.getElementById("loginPassword").value;
-  alert("username: " + user + " password: " + pass);
+
+  document.getElementById("loginResult").innerHTML = "";
+
+  var loginPayload = '{"login" : "' + user + '", "password" : "' + pass + '"}';
+  var url = urlBegin + '/login' + urlEnding;
+  alert(loginPayload);
+
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try
+	{
+		request.send(loginPayload);
+
+		var jsonObject = JSON.parse(request.responseText);
+
+    error = jsonObject.error;
+
+		if(error == "")
+		{
+			document.getElementById("createResult").innerHTML = "success logging in, welcome " + jsonObject.first_name;
+			return;
+		}
+
+    if(error == "No Account Found")
+    {
+      document.getElementById("createResult").innerHTML = "error: no user found";
+      return;
+    }
+
+    if(error == "Incorrect Password")
+    {
+      document.getElementById("createResult").innerHTML = "error: incorrect password";
+      return;
+    }
+
+	}
+
+  catch(err)
+{
+  document.getElementById("createResult").innerHTML = err.message;
+}
+
 }
 
 function createLogin(){
   var user = document.getElementById("loginName").value;
   var pass = document.getElementById("loginPassword").value;
+  document.getElementById("createResult").innerHTML = "";
 
   var loginPayload = '{"login" : "' + user + '", "password" : "' + pass + '"}';
   var url = urlBegin + '/register' + urlEnding;
@@ -29,28 +74,27 @@ function createLogin(){
 
 		if(error == "")
 		{
-			document.getElementById("loginResult").innerHTML = "success creating account";
+			document.getElementById("createResult").innerHTML = "success creating account";
 			return;
 		}
 
     if(error == "Login Already Used")
     {
-      document.getElementById("loginResult").innerHTML = "user already exists";
+      document.getElementById("createResult").innerHTML = "user already exists";
       return;
     }
 
     if(error == "Login and password required")
     {
-      document.getElementById("loginResult").innerHTML = "login and password required to create account";
+      document.getElementById("createResult").innerHTML = "login and password required to create account";
       return;
     }
 
-    alert(document.getElementById("loginResult").innerHTML);
 	}
 
   catch(err)
 {
-  document.getElementById("loginResult").innerHTML = err.message;
+  document.getElementById("createResult").innerHTML = err.message;
 }
 
 }

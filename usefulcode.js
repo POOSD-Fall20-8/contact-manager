@@ -26,19 +26,19 @@ function doLogin(){
 
 		if(error == "")
 		{
-			document.getElementById("createResult").innerHTML = "success logging in, welcome " + jsonObject.first_name;
+			document.getElementById("loginResult").innerHTML = "success logging in, welcome " + jsonObject.first_name;
 			return;
 		}
 
     if(error == "No Account Found")
     {
-      document.getElementById("createResult").innerHTML = "error: no user found";
+      document.getElementById("loginResult").innerHTML = "error: no user found";
       return;
     }
 
     if(error == "Incorrect Password")
     {
-      document.getElementById("createResult").innerHTML = "error: incorrect password";
+      document.getElementById("loginResult").innerHTML = "error: incorrect password";
       return;
     }
 
@@ -46,7 +46,7 @@ function doLogin(){
 
   catch(err)
 {
-  document.getElementById("createResult").innerHTML = err.message;
+  document.getElementById("loginResult").innerHTML = err.message;
 }
 
 }

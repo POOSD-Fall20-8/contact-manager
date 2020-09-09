@@ -50,7 +50,7 @@ function createLogin(){
   catch(err)
 {
   document.getElementById("loginResult").innerHTML = err.message;
-  alert(document.getElementById("loginResult").innerHTML = err.message);
+  alert(document.getElementById("loginResult").innerHTML);
 }
 
 }

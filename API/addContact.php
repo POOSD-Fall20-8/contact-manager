@@ -29,7 +29,7 @@
 	else{
 		$sql = "SELECT record_id FROM contacts WHERE (first_name='". $first_name."'".
 			" AND last_name='". $last_name."' AND email='". $email."' AND ".
-			" phone = '". $phone."' AND address= '". $address."' AND user_id='".$user_id"')";
+			" phone = '". $phone."' AND address= '". $address."' AND user_id='".$user_id."')";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0){
 			returnWithError("Duplicate Contact");

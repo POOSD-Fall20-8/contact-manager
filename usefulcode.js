@@ -1,5 +1,28 @@
 var urlBegin = 'http://contactmanageronline.com/API';
 var urlEnding = '.php';
+var userid;
+
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
 
 function doLogin(){
 
@@ -10,7 +33,6 @@ function doLogin(){
 
   var loginPayload = '{"login" : "' + user + '", "password" : "' + pass + '"}';
   var url = urlBegin + '/login' + urlEnding;
-  alert(loginPayload);
 
   var request = new XMLHttpRequest();
   request.open("POST", url, false);
@@ -27,7 +49,10 @@ function doLogin(){
 		if(error == "")
 		{
 			document.getElementById("loginResult").innerHTML = "success logging in, welcome " + jsonObject.first_name;
-			return false;
+      window.location.replace("home.html");
+      userid = jsonObject.user_id;
+      alert("userid: " + userid);
+      return false;
 		}
 
     if(error == "No Account Found")
@@ -52,6 +77,12 @@ function doLogin(){
 
 }
 
+function doLogout(){
+  userid = -1;
+  window.location.replace("index.html");
+  alert("userid: " + userid);
+}
+
 function createLogin(){
   var user = document.getElementById("loginName").value;
   var pass = document.getElementById("loginPassword").value;
@@ -59,7 +90,6 @@ function createLogin(){
 
   var loginPayload = '{"login" : "' + user + '", "password" : "' + pass + '"}';
   var url = urlBegin + '/register' + urlEnding;
-  alert(loginPayload);
 
   var request = new XMLHttpRequest();
   request.open("POST", url, false);

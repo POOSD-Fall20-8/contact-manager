@@ -9,8 +9,10 @@
 
   function sendResultInfoAsJson( $obj ){
     header('Content-type: application/json');
-    header('Access-Control-Allow-Origin: *');
-    echo $obj;
+	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Headers: *');
+	header('Access-Control-Allow-Methods: *');
+	echo $obj;
   }
 
 ?>

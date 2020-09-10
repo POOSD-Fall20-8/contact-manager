@@ -24,6 +24,10 @@ function myFunction() {
   }
 }
 
+function addContact(){
+  alert("this button does nothing, for now");
+}
+
 function doLogin(){
 
   var user = document.getElementById("loginName").value;

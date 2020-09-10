@@ -11,33 +11,64 @@
   <body>
 
     <br><br>
-    <div>Welcome back alien!</div>
+    <div id="welcomealien">Welcome back alien!</div>
 
     <button id="logoutButton" onclick="return doLogout();">Logout</button>
     <br><br><br><br>
 
-    <input type="text" id="myInput" onkeyup=" return myFunction()" placeholder="Search for contacts..">
+    <button id="addContact" onclick="return addContact();">Add a new contact</button>
+
+    <input type="text" id="myInput" onkeyup=" return myFunction()" placeholder="Search for contacts...">
 
 <table id="myTable">
   <tr class="header">
-    <th style="width:60%;">Name</th>
-    <th style="width:40%;">Country</th>
+    <th style="width:8%;">First Name</th>
+    <th style="width:8%;">Last Name</th>
+    <th style="width:20%;">Email</th>
+    <th style="width:20%;">Phone Number</th>
+    <th style="width:25%;">Address</th>
   </tr>
   <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Germany</td>
+    <td>Rick</td>
+    <td>Leinecker</td>
+    <td>rickl@gmail.com</td>
+    <td>407-800-8000</td>
+    <td>123 street</td>
   </tr>
   <tr>
-    <td>Berglunds snabbkop</td>
-    <td>Sweden</td>
+    <td>Austin</td>
+    <td>Bacchus</td>
+    <td>austinbacchus@gmail.com</td>
+    <td>407-800-8000</td>
+    <td>124 street</td>
   </tr>
   <tr>
-    <td>Island Trading</td>
-    <td>UK</td>
+    <td>Kanye</td>
+    <td>West</td>
+    <td>yeezy@gmail.com</td>
+    <td>407-800-8000</td>
+    <td>125 street</td>
   </tr>
   <tr>
-    <td>Koniglich Essen</td>
-    <td>Germany</td>
+    <td>Steve</td>
+    <td>Jobs</td>
+    <td>stevejobs@gmail.com</td>
+    <td>407-800-8000</td>
+    <td>126 street</td>
+  </tr>
+  <tr>
+    <td>Pablo</td>
+    <td>Escobar</td>
+    <td>elchapo@gmail.com</td>
+    <td>407-800-8000</td>
+    <td>127 street</td>
+  </tr>
+  <tr>
+    <td>James</td>
+    <td>Bond</td>
+    <td>topsecret@gmail.com</td>
+    <td>407-800-8000</td>
+    <td>007 street</td>
   </tr>
 </table>
 

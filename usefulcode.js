@@ -1,6 +1,5 @@
 var urlBegin = 'http://contactmanageronline.com/API';
 var urlEnding = '.php';
-var userid;
 
 function myFunction() {
   // Declare variables
@@ -25,7 +24,32 @@ function myFunction() {
 }
 
 function addContact(){
-  alert("this button does nothing, for now");
+  var addPayload = '{"search" : "", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  var url = urlBegin + '/login' + urlEnding;
+
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try
+	{
+    alert(addPayload);
+		request.send(addPayload);
+
+		var jsonObject = JSON.parse(request.responseText);
+
+    var contacts = Object.keys(jsonObject).length;
+    alert("hi");
+    alert(contacts);
+
+	}
+
+  catch(err)
+{
+  alert(err.message);
+  return false;
+}
+
 }
 
 function doLogin(){
@@ -52,10 +76,9 @@ function doLogin(){
 
 		if(error == "")
 		{
-			document.getElementById("loginResult").innerHTML = "success logging in, welcome " + jsonObject.first_name;
-      window.location.replace("home.html");
-      userid = jsonObject.user_id;
-      alert("userid: " + userid);
+      window.sessionStorage.setItem("user_id",jsonObject.user_id);
+      window.location.href = "home.html";
+      alert("userid: " + window.sessionStorage.getItem("user_id"));
       return false;
 		}
 
@@ -82,9 +105,9 @@ function doLogin(){
 }
 
 function doLogout(){
-  userid = -1;
+  window.sessionStorage.setItem("user_id","-1");
   window.location.replace("index.html");
-  alert("userid: " + userid);
+  alert("userid: " + window.sessionStorage.getItem("user_id"));
 }
 
 function createLogin(){

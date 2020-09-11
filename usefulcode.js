@@ -25,7 +25,7 @@ function myFunction() {
 
 function addContact(){
   var addPayload = '{"search" : "", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
-  var url = urlBegin + '/login' + urlEnding;
+  var url = urlBegin + '/searchContact' + urlEnding;
 
   var request = new XMLHttpRequest();
   request.open("POST", url, false);
@@ -38,9 +38,8 @@ function addContact(){
 
 		var jsonObject = JSON.parse(request.responseText);
 
-    var contacts = Object.keys(jsonObject).length;
-    alert("hi");
-    alert(contacts);
+    var contacts = jsonObject.matched.length
+    alert("User: " + window.sessionStorage.getItem("user_id") + "... Number of contacts: " + contacts);
 
 	}
 
@@ -74,14 +73,6 @@ function doLogin(){
 
     error = jsonObject.error;
 
-		if(error == "")
-		{
-      window.sessionStorage.setItem("user_id",jsonObject.user_id);
-      window.location.href = "home.html";
-      alert("userid: " + window.sessionStorage.getItem("user_id"));
-      return false;
-		}
-
     if(error == "No Account Found")
     {
       document.getElementById("loginResult").innerHTML = "error: no user found";
@@ -92,7 +83,15 @@ function doLogin(){
     {
       document.getElementById("loginResult").innerHTML = "error: incorrect password";
       return false;
-	}
+	  }
+
+    if(error == "")
+    {
+      window.sessionStorage.setItem("user_id",jsonObject.user_id);
+      window.location.href = "home.html";
+      alert("userid: " + window.sessionStorage.getItem("user_id"));
+      return false;
+    }
 
 	}
 
@@ -130,12 +129,6 @@ function createLogin(){
 
 		error = jsonObject.error;
 
-		if(error == "")
-		{
-			document.getElementById("createResult").innerHTML = "success creating account";
-			return false;
-		}
-
     if(error == "Login Already Used")
     {
       document.getElementById("createResult").innerHTML = "user already exists";
@@ -145,6 +138,12 @@ function createLogin(){
     if(error == "Login and password required")
     {
       document.getElementById("createResult").innerHTML = "login and password required to create account";
+      return false;
+    }
+
+    if(error == "")
+    {
+      document.getElementById("createResult").innerHTML = "success creating account";
       return false;
     }
 

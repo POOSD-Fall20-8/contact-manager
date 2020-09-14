@@ -16,7 +16,11 @@
     <button id="logoutButton" onclick="return doLogout();">Logout</button>
     <br><br><br><br>
 
-    <button id="addContact" onclick="return addContact();">Add a new contact</button>
+    <button id="addContact" onclick="return addContact();">Total Contacts</button> 
+    
+    <br>
+
+    <button id="myBtn">Add a new contact</button>
 
     <input type="text" id="myInput" onkeyup=" return myFunction()" placeholder="Search for contacts...">
 
@@ -71,7 +75,130 @@
     <td>007 street</td>
   </tr>
 </table>
+  <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- Trigger/Open The Modal -->
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    
+
+    <div class="contact-title">
+      <h3>Add a contact to our database</h3>
+
+      
+      </div>
+      <br><br>
+
+      <div class = "contact-form">
+        <form id="contact-form" method="post" action =""> 
+
+          <input name="firstname" type="text" class="form-control" placeholder="First Name" required><br> <br>
+          <input name="lastname" type="text" class="form-control" placeholder="Last Name" required><br> <br>
+          <input name="email" type="email" class="form-control" placeholder="Your email" required> <br> <br>
+          <input name="phonenumber" type="number" class="form-control" placeholder="Phone Number" required> <br> <br>
+          <input name="address" type="text" class="form-control" placeholder="Address" required> <br> <br>
+
+          <!-- <textarea name="message" id="form-control" placeholder="Message" rows="6" cols="25" required> -->
+
+          </textarea> <br>
+
+          <input type="submit" class="form-control submit" value="Submit">
+        </form>
+
+      </div>
+
+  </div>
+
+</div>
 
   </body>
 
+</html>
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+
+/* popup background */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Popup Content */
+.modal-content {
+  background-color: transparent;
+  margin: auto;
+  padding: 20px;
+  border: none;
+  width: 80%;
+}
+
+/* Close button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
 </html>

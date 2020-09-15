@@ -24,7 +24,7 @@
 	$record_id = $inData->record_id;
 
 	$sql = "UPDATE contacts SET ";
-	$result = $conn->query($sql);
+	
 
 	if ($first_name != ""){
 		$sql .= "first_name = '" . $first_name ."',";

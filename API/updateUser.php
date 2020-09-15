@@ -25,6 +25,7 @@
     }
     else{
         $sql = "UPDATE Users SET";
+	$result = $conn->query($sql);
         if($first_name !=""){
             $sql .= "first_name = '" . $first_name ."',";
 	    echo "succesfully updated!";
@@ -38,6 +39,7 @@
             $sql .= "password = '" . $password ."',";
 	    echo "succesfully updated!";
         }
+	 $conn->close();
     }
 	
 ?>

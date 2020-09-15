@@ -50,16 +50,18 @@
 
 
 
-    <input type="text" id="myInput" onkeyup=" return myFunction()" placeholder="Search for contacts...">
+    <input type="text" id="searchBar" onkeyup=" return buildTable()" placeholder="Search for contacts...">
 
 <table id="myTable">
-  <tr class="header">
+  <tr class="header" id="headers">
     <th style="width:8%;">First Name</th>
     <th style="width:8%;">Last Name</th>
     <th style="width:20%;">Email</th>
     <th style="width:20%;">Phone Number</th>
     <th style="width:25%;">Address</th>
   </tr>
+</table>
+  <!--
   <tr>
     <td>Rick</td>
     <td>Leinecker</td>
@@ -103,6 +105,8 @@
     <td>007 street</td>
   </tr>
 </table>
+
+-->
 
   </body>
 

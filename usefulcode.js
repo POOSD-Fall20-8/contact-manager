@@ -38,7 +38,7 @@ function countContact(){
 
 		var jsonObject = JSON.parse(request.responseText);
 
-    var contacts = jsonObject.matched.length
+    var contacts = jsonObject.matched.length;
     alert("User: " + window.sessionStorage.getItem("user_id") + "... Number of contacts: " + contacts);
 
 	}
@@ -49,6 +49,59 @@ function countContact(){
   return false;
 }
 
+}
+
+
+function buildTable() {
+  search = document.getElementById("searchBar").value;
+
+  var searchPayload = '{"search" : "'+search+'", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  var url = urlBegin + '/searchContact' + urlEnding;
+
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try
+  {
+    request.send(searchPayload);
+
+    var jsonObject = JSON.parse(request.responseText);
+
+    var contactsArr = jsonObject.matched;
+
+  }
+
+  catch(err)
+{
+  alert(err.message);
+  return false;
+}
+
+  var table = document.getElementById('myTable');
+
+  tableBody = document.createElement('tbody');
+
+  contactsArr.forEach(function(contactInfo){
+    var row = document.createElement('tr');
+    Object.entries(contactInfo).forEach(function([key,value]){
+      if(key!='record_id'){
+        var cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(value));
+        row.appendChild(cell);
+      }
+    });
+    tableBody.appendChild(row);
+  });
+
+  if (table.childNodes.length > 2){
+      table.replaceChild(tableBody,table.childNodes[table.childNodes.length-1]);
+  }
+  else{
+    table.appendChild(tableBody);
+  }
+
+  return false;
 }
 
 function doLogin(){

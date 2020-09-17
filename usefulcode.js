@@ -225,8 +225,22 @@ function submitForm() {
   var phony = document.getElementById("pnum").value;
   var addy = document.getElementById("addy").value;
   var userid = window.sessionStorage.getItem("user_id");
+  //var edity = document.getElementById("edit").value;
 
-  var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : ' + userid + '}'
+  var edity = document.createElement("edit");
+  edity.innerHTML = "edit/deletenow";
+
+  button.addEventListener("click", function() {
+  button.innerHTML = "You did it";
+  });
+
+document.body.appendChild(edity);
+
+
+  //<input type="button" value="Edit" onClick="java()"></input>
+
+
+  var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : ' + userid + '", "edit" : ' + edity + '}'
   var url = urlBegin + '/addContact' + urlEnding;
 
   var request = new XMLHttpRequest();
@@ -259,3 +273,4 @@ function submitForm() {
 
   alert(contactPayload);
 }
+

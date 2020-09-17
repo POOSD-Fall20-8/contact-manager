@@ -227,20 +227,18 @@ function submitForm() {
   var userid = window.sessionStorage.getItem("user_id");
   //var edity = document.getElementById("edit").value;
 
-  var edity = document.createElement("edit");
+  let edity = document.createElement("edit");
   edity.innerHTML = "edit/deletenow";
 
-  button.addEventListener("click", function() {
-  button.innerHTML = "You did it";
-  });
+ 
 
-document.body.appendChild(edity);
+  document.body.appendChild(edity);
 
 
   //<input type="button" value="Edit" onClick="java()"></input>
 
 
-  var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : ' + userid + '", "edit" : ' + edity + '}'
+  var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : ' + userid + '", "edity" : ' + edity + '}'
   var url = urlBegin + '/addContact' + urlEnding;
 
   var request = new XMLHttpRequest();

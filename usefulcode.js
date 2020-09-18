@@ -23,6 +23,13 @@ function myFunction() {
   }
 }
 
+const btn = document.createElement('button');
+btn.innerText = 'New Button';
+
+document.body.appendChild(btn);
+
+
+
 function countContact(){
   var addPayload = '{"search" : "", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
   var url = urlBegin + '/searchContact' + urlEnding;
@@ -91,6 +98,29 @@ function buildTable() {
         row.appendChild(cell);
       }
     });
+    
+    var button = document.createElement('editButton');
+    button.innerHTML = "Edit Contact";
+    
+    //tried building a popup for the edit button, seeing if it works if connected to live
+    button.addEventListener("click", function()
+    {
+      //onclick= "openpopup()";
+      //var window;
+      //mywindow = window.open('http://google.com', '__blank', 'height=300, width=300');
+      button = window.open('http://google.com', '__blank', 'height=300, width=300');
+
+
+      //button.innerHTML = "Would you like to edit or delete this contact?";
+      //var popupedit = prompt("Would you like to edit", "yes");
+     
+    });
+    
+    
+    row.appendChild(button);
+
+    
+    
     tableBody.appendChild(row);
   });
 
@@ -227,18 +257,12 @@ function submitForm() {
   var userid = window.sessionStorage.getItem("user_id");
   //var edity = document.getElementById("edit").value;
 
-  let edity = document.createElement("edit");
-  edity.innerHTML = "edit/deletenow";
-
- 
-
-  document.body.appendChild(edity);
-
+  
 
   //<input type="button" value="Edit" onClick="java()"></input>
 
 
-  var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : ' + userid + '", "edity" : ' + edity + '}'
+  var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : ' + userid +  '}'
   var url = urlBegin + '/addContact' + urlEnding;
 
   var request = new XMLHttpRequest();

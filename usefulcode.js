@@ -262,7 +262,7 @@ function submitForm() {
   //<input type="button" value="Edit" onClick="java()"></input>
 
 
-  var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : ' + userid +  '}'
+  var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : "' + userid +  '"}'
   var url = urlBegin + '/addContact' + urlEnding;
 
   var request = new XMLHttpRequest();

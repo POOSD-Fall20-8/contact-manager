@@ -172,6 +172,7 @@ function deleteContact(record_id){
       //alert("userid: " + window.sessionStorage.getItem("user_id"));
       return false;
     }
+  }
 
 }
 

@@ -24,8 +24,13 @@
 	$record_id = $inData->record_id;
 
 	$sql = "UPDATE contacts SET ";
-	
+	$sql .= "first_name = '" . $first_name ."',";
+	$sql .= "last_name = '" . $last_name ."',";
+	$sql .= "email = '" . $email ."',";
+	$sql .= "phone = '" . $phone ."',";
+	$sql .= "address = '".$address."' ";
 
+/*
 	if ($first_name != ""){
 		$sql .= "first_name = '" . $first_name ."',";
 	}
@@ -47,7 +52,7 @@
 	}
 	else{
 		returnWithError("No Fields To Update");
-	}
+	}*/
 
 	$sql .= "WHERE user_id = '". $user_id ."' AND record_id = '". $record_id . "'";
 

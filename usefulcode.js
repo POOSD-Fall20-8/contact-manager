@@ -40,13 +40,14 @@ function countContact(){
 
   try
 	{
-    alert(addPayload);
+    //alert(addPayload);
 		request.send(addPayload);
 
 		var jsonObject = JSON.parse(request.responseText);
 
     var contacts = jsonObject.matched.length;
-    alert("User: " + window.sessionStorage.getItem("user_id") + "... Number of contacts: " + contacts);
+    //alert("User: " + window.sessionStorage.getItem("user_id") + "Number of contacts: " + contacts);
+    alert("Number of contacts: " + contacts);
 
 	}
 
@@ -215,7 +216,7 @@ function deleteContact(record_id){
     if(error == "Record Not Found")
     {
       //document.getElementById("loginResult").innerHTML = "error: no user found";
-      alert("liar");
+      //alert("liar");
       return false;
     }
 
@@ -273,7 +274,7 @@ function doLogin(){
     {
       window.sessionStorage.setItem("user_id",jsonObject.user_id);
       window.location.href = "home.html";
-      alert("userid: " + window.sessionStorage.getItem("user_id"));
+      //alert("userid: " + window.sessionStorage.getItem("user_id"));
       return false;
     }
 
@@ -290,7 +291,7 @@ function doLogin(){
 function doLogout(){
   window.sessionStorage.setItem("user_id","-1");
   window.location.replace("index.html");
-  alert("userid: " + window.sessionStorage.getItem("user_id"));
+  //alert("userid: " + window.sessionStorage.getItem("user_id"));
 }
 
 function createLogin(){
@@ -405,5 +406,5 @@ function submitForm() {
   return false;
 }
 
-  alert(contactPayload);
+  //alert(contactPayload);
 }

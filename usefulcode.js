@@ -350,6 +350,11 @@ function openForm2() {
 }
 
 function closeForm() {
+  document.getElementById("fname").value = "";
+  document.getElementById("lname").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("pnum").value = "";
+  document.getElementById("addy").value = "";
   document.getElementById("myForm").style.display = "none";
 }
 

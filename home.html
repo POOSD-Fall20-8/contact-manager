@@ -42,7 +42,7 @@
         <label for="addy"><b>Address</b></label>
         <input id="addy" type="text" placeholder="Enter Address">
 
-        <button type="submit" class="btn" onclick="submitForm(); buildTable()">Add</button>
+        <button type="submit" class="btn" onclick="submitForm(); closeForm(); return buildTable()">Add</button>
         <button type="button" class="btn cancel" onclick="return closeForm()">Close</button>
       </form>
     </div>

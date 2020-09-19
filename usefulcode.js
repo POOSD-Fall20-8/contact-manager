@@ -218,6 +218,12 @@ function doLogin(){
       return false;
     }
 
+    catch(err)
+  {
+    alert(err.message);
+    return false;
+  }
+
 	}
 
   catch(err)

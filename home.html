@@ -42,7 +42,7 @@
         <label for="addy"><b>Address</b></label>
         <input id="addy" type="text" placeholder="Enter Address">
 
-        <button type="submit" class="btn" onclick="submitForm()">Add</button>
+        <button type="submit" class="btn" onclick="submitForm(); buildTable()">Add</button>
         <button type="button" class="btn cancel" onclick="return closeForm()">Close</button>
       </form>
     </div>
@@ -69,15 +69,15 @@
 
         <input type="hidden" id="recordid">
 
-        <button type="submit" class="btn" onclick="updateForm()">Add</button>
+        <button type="submit" class="btn" onclick="updateForm(); closeForm2(); return buildTable()">Add</button>
         <button type="button" class="btn cancel" onclick="return closeForm2()">Close</button>
       </form>
     </div>
 
 
 
-    <input type="text" id="searchBar" onkeyup=" return buildTable()" placeholder="Search for contacts...">
-
+    <input type="text" id="searchBar" placeholder="Search for contacts...">
+    <button type="button" class="btn submit" onclick="buildTable()">Search</button>
 
 
 <table id="myTable">

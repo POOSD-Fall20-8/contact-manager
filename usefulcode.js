@@ -117,7 +117,8 @@ function buildTable() {
 
     button.addEventListener("click", function()
     {
-      deleteContact(id)
+      deleteContact(id);
+      buildTable();
     });
 
     row.appendChild(button);

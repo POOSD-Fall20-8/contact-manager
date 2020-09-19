@@ -98,29 +98,32 @@ function buildTable() {
         row.appendChild(cell);
       }
     });
-    
-    var button = document.createElement('editButton');
-    button.innerHTML = "Edit Contact";
-    
-    //tried building a popup for the edit button, seeing if it works if connected to live
+
+    var id = contactInfo.record_id;
+
+    var button = document.createElement('button');
+    button.innerHTML = "Edit";
+
     button.addEventListener("click", function()
     {
-      //onclick= "openpopup()";
-      //var window;
-      //mywindow = window.open('http://google.com', '__blank', 'height=300, width=300');
-      button = window.open('http://google.com', '__blank', 'height=300, width=300');
-
-
-      //button.innerHTML = "Would you like to edit or delete this contact?";
-      //var popupedit = prompt("Would you like to edit", "yes");
-     
+      editContact(id)
     });
-    
-    
+
     row.appendChild(button);
 
-    
-    
+
+    var button = document.createElement('button');
+    button.innerHTML = "Delete";
+
+    button.addEventListener("click", function()
+    {
+      deleteContact(id)
+    });
+
+    row.appendChild(button);
+
+
+
     tableBody.appendChild(row);
   });
 
@@ -132,6 +135,14 @@ function buildTable() {
   }
 
   return false;
+}
+
+function editContact(record_id){
+  alert("Edit: "+record_id);
+}
+
+function deleteContact(record_id){
+  alert("Delete:"+record_id);
 }
 
 function doLogin(){
@@ -255,9 +266,9 @@ function submitForm() {
   var phony = document.getElementById("pnum").value;
   var addy = document.getElementById("addy").value;
   var userid = window.sessionStorage.getItem("user_id");
- 
 
- 
+
+
 
 
   var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : "' + userid +  '"}'
@@ -293,4 +304,3 @@ function submitForm() {
 
   alert(contactPayload);
 }
-

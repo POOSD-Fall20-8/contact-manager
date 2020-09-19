@@ -67,7 +67,9 @@
         <label for="addy"><b>Address</b></label>
         <input id="addy2" type="text" placeholder="Enter Address" required>
 
-        <button type="submit" class="btn" onclick="submitForm2()">Add</button>
+        <input type="hidden" id="recordid">
+
+        <button type="submit" class="btn" onclick="updateForm()">Add</button>
         <button type="button" class="btn cancel" onclick="return closeForm2()">Close</button>
       </form>
     </div>

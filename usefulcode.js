@@ -137,17 +137,61 @@ function buildTable() {
   return false;
 }
 
-function editContact(contactInfo){
-  alert("Edit: "+ contactInfo);
+function editContact(contactInfo) {
   document.getElementById("fname2").value = contactInfo.first_name;
   document.getElementById("lname2").value = contactInfo.last_name;
   document.getElementById("email2").value = contactInfo.email;
   document.getElementById("pnum2").value = contactInfo.phone;
   document.getElementById("addy2").value = contactInfo.address;
+  document.getElementById("recordid").value = contactInfo.record_id;
   openForm2();
 
-
 }
+
+function updateForm() {
+
+    var recordid = document.getElementById("recordid").value;
+    var firsty = document.getElementById("fname2").value;
+    var lasty = document.getElementById("lname2").value;
+    var emmy = document.getElementById("email2").value;
+    var phony = document.getElementById("pnum2").value;
+    var addy = document.getElementById("addy2").value;
+    var userid = window.sessionStorage.getItem("user_id");
+
+    var updatePayload = '{"record_id" : "' + recordid + '", "first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : ' + userid +  '}'
+    var url = urlBegin + '/updateContact' + urlEnding;
+
+    var request = new XMLHttpRequest();
+    request.open("POST", url, false);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try
+  	{
+  		request.send(updatePayload);
+
+  		var jsonObject = JSON.parse(request.responseText);
+
+      error = jsonObject.error;
+
+      if(error == "")
+      {
+        alert("contact successfully updated");
+        return false;
+      }
+
+  	}
+
+    catch(err)
+  {
+    alert(err.message);
+    return false;
+  }
+
+
+  }
+
+
+
 
 function deleteContact(record_id){
 

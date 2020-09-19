@@ -106,7 +106,7 @@ function buildTable() {
 
     button.addEventListener("click", function()
     {
-      editContact(id)
+      editContact(contactInfo)
     });
 
     row.appendChild(button);
@@ -137,8 +137,16 @@ function buildTable() {
   return false;
 }
 
-function editContact(record_id){
-  alert("Edit: "+record_id);
+function editContact(contactInfo){
+  alert("Edit: "+ contactInfo);
+  document.getElementById("fname2").value = contactInfo.first_name;
+  document.getElementById("lname2").value = contactInfo.last_name;
+  document.getElementById("email2").value = contactInfo.email;
+  document.getElementById("pnum2").value = contactInfo.phone;
+  document.getElementById("addy2").value = contactInfo.address;
+  openForm2();
+
+
 }
 
 function deleteContact(record_id){
@@ -292,8 +300,16 @@ function openForm() {
   document.getElementById("myForm").style.display = "block";
 }
 
+function openForm2() {
+  document.getElementById("myForm2").style.display = "block";
+}
+
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
+}
+
+function closeForm2() {
+  document.getElementById("myForm2").style.display = "none";
 }
 
 function submitForm() {

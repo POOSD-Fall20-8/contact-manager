@@ -24,7 +24,7 @@
 		returnWithError( $conn->connect_error );
     }
     else{
-		$sql = "UPDATE Users SET";
+		$sql = "UPDATE users SET ";
 		
         if($first_name !=""){
 			$sql .= "first_name = '" . $first_name ."',";

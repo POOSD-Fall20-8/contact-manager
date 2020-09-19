@@ -19,7 +19,7 @@ body{
   position: fixed;
   top: 30%;
   right: 5%;
-  margin: 0 auto;
+  magin: 0 auto;
   background: #191919;
   text-align: center;
   border-radius: 20px;
@@ -33,7 +33,7 @@ body{
 
 div {
   text-align: center;
-  background-color: lightcyan;
+  background-color: #ccffb3;
   border-radius: 24px;
   width: 20%;
   padding: 15px;
@@ -187,7 +187,8 @@ div {
 .buttonGroup{
   margin-bottom: 6px; /* Add some space below the input */
   position: relative;
-  right: 35%;
+  width: 80%;
+  margin-bottom: 20px;
 }
 
 #logoutButton:hover{
@@ -199,7 +200,7 @@ div {
   font-size: 16px; /* Increase font-size */
   padding: 12px 20px 12px 40px; /* Add some padding */
   border: 1px solid black; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
+  margin-bottom: 12px; /* Add some space below the input */\
   margin: 0;
   left: 0;
   right: 0;
@@ -227,13 +228,22 @@ div {
   border-bottom: 1px solid black;
 }
 
-#myTable tr.header, #myTable tr:hover {
+#myTable tr.header{
   /* Add a grey background color to the table header and on hover */
   background-color: #7FFF00;
 }
 
+#myTable tr:hover{
+  background-color: #ccffb3;
+}
 
-
+#searchBar {
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 20px;
+  background-color: #ccffb3;
+}
 
 
 
@@ -290,4 +300,3 @@ div {
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
-

@@ -62,7 +62,7 @@ function countContact(){
 function buildTable() {
   search = document.getElementById("searchBar").value;
 
-  var searchPayload = '{"search" : "'+search+'", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  var searchPayload = '{"search" : "' + search + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
   var url = urlBegin + '/searchContact' + urlEnding;
 
   var request = new XMLHttpRequest();
@@ -142,7 +142,37 @@ function editContact(record_id){
 }
 
 function deleteContact(record_id){
-  alert("Delete:"+record_id);
+
+  alert("Delete:" + record_id);
+  var deletePayload = '{"record_id" : "' + record_id + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  var url = urlBegin + '/deleteContact' + urlEnding;
+
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try
+  {
+    request.send(deletePayload);
+
+    var jsonObject = JSON.parse(request.responseText);
+
+    error = jsonObject.error;
+
+    if(error == "Record Not Found")
+    {
+      //document.getElementById("loginResult").innerHTML = "error: no user found";
+      alert("liar");
+      return false;
+    }
+
+    if(error == "")
+    {
+      alert("contact successfully deleted")
+      //alert("userid: " + window.sessionStorage.getItem("user_id"));
+      return false;
+    }
+
 }
 
 function doLogin(){

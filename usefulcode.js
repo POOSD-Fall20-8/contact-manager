@@ -174,6 +174,12 @@ function deleteContact(record_id){
     }
   }
 
+  catch(err)
+  {
+  alert(err.message);
+  return false;
+  }
+
 }
 
 function doLogin(){
@@ -221,10 +227,10 @@ function doLogin(){
 	}
 
   catch(err)
-{
+  {
   document.getElementById("loginResult").innerHTML = err.message;
   return false;
-}
+  }
 
 }
 

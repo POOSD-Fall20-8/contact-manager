@@ -6,7 +6,11 @@ body{
   background-size: 100%;
 }
 
+
+
 /* CSS FOR INDEX */
+
+
 
 .box p{
   color:red;
@@ -19,7 +23,7 @@ body{
   position: fixed;
   top: 30%;
   right: 5%;
-  magin: 0 auto;
+  margin: 0 auto;
   background: #191919;
   text-align: center;
   border-radius: 20px;
@@ -238,13 +242,40 @@ div {
 }
 
 #searchBar {
-  width: 80%;
+  width: 10%;
   padding: 12px 20px;
   margin: 8px 0;
   border-radius: 20px;
   background-color: #ccffb3;
 }
-
+#searchBar2 {
+  width: 10%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 20px;
+  background-color: #ccffb3;
+}
+#searchBar3 {
+  width: 15%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 20px;
+  background-color: #ccffb3;
+}
+#searchBar4 {
+  width: 15%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 20px;
+  background-color: #ccffb3;
+}
+#searchBar5 {
+  width: 17.5%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 20px;
+  background-color: #ccffb3;
+}
 
 
 

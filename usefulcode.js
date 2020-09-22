@@ -61,15 +61,15 @@ function countContact(){
 
 
 function buildTable() {
-  first_name = document.getElementById("searchBar").value; //first name
-  last_name = document.getElementById("searchBar2").value;
-  email_address = document.getElementById("searchBar3").value;
-  phone_number = document.getElementById("searchBar4").value;
-  home_address = document.getElementById("searchBar5").value;
+  search = document.getElementById("searchBar").value; 
+  //last_name = document.getElementById("searchBar2").value;
+  //email_address = document.getElementById("searchBar3").value;
+  //phone_number = document.getElementById("searchBar4").value;
+  //home_address = document.getElementById("searchBar5").value;
 
   //did not substitute 'search' for first_name yet
-  //var searchPayload = '{"search" : "' + search + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
-  var searchPayload = '{"first_name" : "' + first_name + '", "last_name" : "' + last_name + '", "email_address" : "' + email_address + '", "phone_number" : "' + phone_number + '", "home_address" : "' + home_address + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  var searchPayload = '{"search" : "' + search + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  //var searchPayload = '{"search" : "' + search + '", "last_name" : "' + last_name + '", "email_address" : "' + email_address + '", "phone_number" : "' + phone_number + '", "home_address" : "' + home_address + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
 
   var url = urlBegin + '/searchContact' + urlEnding;
 

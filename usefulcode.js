@@ -23,11 +23,6 @@ function myFunction() {
   }
 }
 
-const btn = document.createElement('button');
-btn.innerText = 'New Button';
-
-document.body.appendChild(btn);
-
 
 
 function countContact(){
@@ -61,7 +56,7 @@ function countContact(){
 
 
 function buildTable() {
-  search = document.getElementById("searchBar").value; 
+  search = document.getElementById("searchBar").value;
   //last_name = document.getElementById("searchBar2").value;
   //email_address = document.getElementById("searchBar3").value;
   //phone_number = document.getElementById("searchBar4").value;
@@ -248,9 +243,11 @@ function doLogin(){
   var user = document.getElementById("loginName").value;
   var pass = document.getElementById("loginPassword").value;
 
+  var hashedpass = md5(pass);
+
   document.getElementById("loginResult").innerHTML = "";
 
-  var loginPayload = '{"login" : "' + user + '", "password" : "' + pass + '"}';
+  var loginPayload = '{"login" : "' + user + '", "password" : "' + hashedpass + '"}';
   var url = urlBegin + '/login' + urlEnding;
 
   var request = new XMLHttpRequest();
@@ -304,9 +301,11 @@ function doLogout(){
 function createLogin(){
   var user = document.getElementById("loginName").value;
   var pass = document.getElementById("loginPassword").value;
+
+  var hashedpass = md5( pass );
   document.getElementById("createResult").innerHTML = "";
 
-  var loginPayload = '{"login" : "' + user + '", "password" : "' + pass + '"}';
+  var loginPayload = '{"login" : "' + user + '", "password" : "' + hashedpass + '"}';
   var url = urlBegin + '/register' + urlEnding;
 
   var request = new XMLHttpRequest();

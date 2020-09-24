@@ -193,7 +193,7 @@ div {
   position: relative;
   width: 80%;
   margin-bottom: 20px;
- 
+
 }
 
 #logoutButton:hover{
@@ -251,7 +251,7 @@ div {
   padding: 12px 20px;
   margin: 8px 0;
   border-radius: 20px;
-  background-color: #ccffb3; 
+  background-color: #ccffb3;
 }
 /*
 #searchBar2 {
@@ -303,7 +303,7 @@ div {
   margin: 5px 0 22px 0;
   border: none;
   background: #f1f1f1;
-  
+
 }
 
 /* When the inputs get focus, do something */

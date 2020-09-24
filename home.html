@@ -11,15 +11,12 @@
   <body>
 
     <br><br>
-    <div id="welcomealien">Welcome back, alien!</div>
+    <div id="welcomealien">Welcome... alien!</div>
 
     <button id="logoutButton" onclick="return doLogout();">Logout</button>
     <br><br><br><br>
 
-    <div class="buttonGroup">
-      <button id="countContact" onclick="return countContact();">How many contacts</button>
-      <button id="open-button" onclick="openForm()">Add Contact</button>
-    </div>
+
 
 
     <div class="form-popup" id="myForm">
@@ -69,20 +66,15 @@
 
         <input type="hidden" id="recordid">
 
-        <button type="submit" class="btn" onclick="updateForm(); closeForm2(); return buildTable()">Add</button>
+        <button type="submit" class="btn" onclick="updateForm(); closeForm2(); return buildTable()">Update</button>
         <button type="button" class="btn cancel" onclick="return closeForm2()">Close</button>
       </form>
     </div>
 
 
-
     <input type="text" id="searchBar" placeholder="Search for contact...">
-    <!--<input type="text" id="searchBar2" placeholder="Search for last name...">
-    <input type="text" id="searchBar3" placeholder="Search for email...">
-    <input type="text" id="searchBar4" placeholder="Search for phone number...">
-    <input type="text" id="searchBar5" placeholder="Search for address..."> -->
-    <button type="button" class="btn submit" onclick="buildTable()">Search</button>
-
+    <button type="button" class="btnSubmit" onclick="buildTable()"></button>
+    <button id="open-button" onclick="openForm()">Add Contact</button>
 
 <table id="myTable">
   <tr class="header" id="headers">
@@ -90,8 +82,8 @@
     <th style="width:8%;">Last Name</th>
     <th style="width:15%;">Email</th>
     <th style="width:10%;">Phone Number</th>
-    <th style="width:20%;">Address</th>
-    <th style="width:5%;">Tool</th>
+    <th style="width:18%;">Address</th>
+    <th style="width:4%;">Tool</th>
 
   </tr>
 

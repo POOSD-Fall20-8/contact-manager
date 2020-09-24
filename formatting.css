@@ -10,6 +10,11 @@ body{
 
 /* CSS FOR INDEX */
 
+#title:hover {
+  color: #111;
+  background: #39ff14;
+  box-shadow: 0 0 50px #39ff14;
+}
 
 
 .box p{
@@ -32,6 +37,7 @@ body{
 .box h1{
   color: white;
   text-transform: uppercase;
+  font-family: cursive;
   font-weight: 500;
 }
 
@@ -48,12 +54,12 @@ div {
 }
 
 .box a{
-  color:tomato;
+  color:white;
   font-size: 14px;
 }
 
 .box a:hover{
-  color:tomato;
+  color: #7FFF00;
 }
 
 .box input[type = "text"], .box input[type = "password"]{
@@ -73,7 +79,7 @@ div {
 
 .box input[type = "text"]:hover, .box input[type = "password"]:hover{
   width: 180px;
-  border-color: #5c7a9c;
+  border-color: #7FFF00;
 }
 
 
@@ -83,7 +89,7 @@ div {
   display: block;
   margin: 20px auto;
   text-align: center;
-  border: 2px solid #2ecc71;
+  border: 2px solid #7FFF00;
   padding: 14px 40px;
   outline: none;
   color: white;
@@ -93,8 +99,10 @@ div {
 }
 
 .box button:hover{
-  background: #2ecc71;
+  background: #7FFF00;
 }
+
+
 
 /*CSS FOR CREATE*/
 #create p{
@@ -126,7 +134,7 @@ div {
   display: block;
   margin: 20px auto;
   text-align: center;
-  border: 2px solid skyblue;
+  border: 2px solid rgb(7, 115, 134);
   padding: 14px 10px;
   width: 150px;
   outline: none;
@@ -137,7 +145,7 @@ div {
 
 #create input[type = "text"]:hover, #create input[type = "password"]:hover{
   width: 180px;
-  border-color: #2ecc71;
+  border-color: #7FFF00;
 }
 
 #create button{
@@ -146,7 +154,7 @@ div {
   display: block;
   margin: 20px auto;
   text-align: center;
-  border: 2px solid #2ecc71;
+  border: 2px solid #7FFF00;
   padding: 14px 40px;
   outline: none;
   color: white;
@@ -156,36 +164,44 @@ div {
 }
 
 #create button:hover{
-  background: #2ecc71;
+  background: #7FFF00;
 }
 
 #create a{
-  color:tomato;
+  color:white;
   font-size: 12px;
 }
 
 #create a:hover{
-  color:skyblue;
+  color: #7FFF00;
 }
 
 /*CSS FOR HOME*/
 #welcomealien:hover{
-  background-color: #7FFF00;
+  color: #111;
+  background: #39ff14;
+  box-shadow: 0 0 50px #39ff14;
 }
 
 #logoutButton{
   border:0;
   background: none;
   display: block;
-  margin: 20px auto;
+  margin-left: 85%;
   text-align: center;
   border: 2px solid black;
-  padding: 14px 40px;
+  padding: 9px 30px;
   outline: none;
   color: lightgrey;
   border-radius: 24px;
   transition: 0.25s;
   cursor: pointer;
+}
+
+#logoutButton:hover {
+  color: #111;
+  background: #red;
+  box-shadow: 0 0 50px #39ff14;
 }
 
 .buttonGroup{
@@ -247,12 +263,39 @@ div {
 }
 
 #searchBar {
-  width: 82%;
-  padding: 12px 20px;
+  width: 30%;
+  padding: 8px 20px 5px;
   margin: 8px 0;
-  border-radius: 20px;
+  border-radius: 7px;
   background-color: #ccffb3;
+  margin-left: 20px;
 }
+
+.btnSubmit {
+  background-image: url(
+  'https://img.icons8.com/metro/26/000000/search.png');
+  background-size: cover;
+  border-radius: 20px;
+  width: 27px;
+  height: 27px;
+  margin-top: 25px
+}
+
+#open-button {
+
+    display: inline-block;
+    text-decoration: none;
+    margin-left: 82%;
+    margin-bottom: 5px;
+    font-family: cursive;
+}
+
+#open-button:hover{
+    color: #111;
+    background: #39ff14;
+    box-shadow: 0 0 50px #39ff14;
+}
+
 /*
 #searchBar2 {
   width: 10%;
@@ -287,6 +330,7 @@ div {
 
 /* The popup form - hidden by default */
 .form-popup {
+  width: 300px;
   display: none;
   position: fixed;
   bottom: 40px;
@@ -294,6 +338,7 @@ div {
   right: 520px;
   border: 3px solid #03913e;
   z-index: 9;
+  box-shadow: 0 0 50px #39ff14;
 }
 
 /* Full-width input fields */

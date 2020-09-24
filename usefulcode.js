@@ -105,7 +105,18 @@ function buildTable() {
     var id = contactInfo.record_id;
 
     var button = document.createElement('button');
-    button.innerHTML = "Edit";
+    button.style.backgroundImage="url('https://img.icons8.com/android/24/000000/edit.png')";
+    button.style.width = "28px";
+    button.style.height = "28px";
+    button.style.borderRadius = "10px";
+    button.style.margin = "3px";
+    button.onmouseover = function() {
+    this.style.backgroundColor = "cyan";
+    }
+    button.onmouseout = function() {
+    this.style.backgroundColor = "";
+    }
+
 
     button.addEventListener("click", function()
     {
@@ -116,19 +127,28 @@ function buildTable() {
 
 
     var button = document.createElement('button');
-    button.innerHTML = "Delete";
+    button.style.backgroundImage="url('https://img.icons8.com/android/24/000000/trash.png')";
+    button.style.width = "28px";
+    button.style.height = "28px";
+    button.style.borderRadius = "10px";
+    button.style.margin = "3px";
+    button.onmouseover = function() {
+    this.style.backgroundColor = "tomato";
+    }
+    button.onmouseout = function() {
+    this.style.backgroundColor = "";
+    }
 
     button.addEventListener("click", function()
     {
-      var userPreference;
 
-      if (confirm("Do you want to delete contact?") == true) 
+      if (confirm("Are you sure you want to delete contact?") == true)
       {
          deleteContact(id);
-      } 
-      else 
+      }
+      else
       {
-        userPreference = "Alright!";
+        alert("that was a close one!");
       }
       buildTable();
     });
@@ -188,7 +208,6 @@ function updateForm() {
 
       if(error == "")
       {
-        alert("contact successfully updated");
         return false;
       }
 
@@ -332,18 +351,22 @@ function createLogin(){
     if(error == "Login Already Used")
     {
       document.getElementById("createResult").innerHTML = "user already exists";
+      document.getElementById("createResult").style.color = "red";
       return false;
     }
 
     if(error == "Login and password required")
     {
       document.getElementById("createResult").innerHTML = "login and password required to create account";
+      document.getElementById("createResult").style.color = "red";
       return false;
     }
 
     if(error == "")
     {
       document.getElementById("createResult").innerHTML = "success creating account";
+      document.getElementById("createResult").style.color = "green";
+      setTimeout(function(){location.href="index.html"} , 1500);
       return false;
     }
 

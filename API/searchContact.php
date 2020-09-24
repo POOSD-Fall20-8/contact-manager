@@ -34,22 +34,8 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
-		/*
-		if($search != ""){
-			$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM contacts WHERE ".
-			"(first_name LIKE '%". $search."%' OR last_name LIKE '%". $search."%' OR " .
-			"email LIKE '%". $search."%' OR phone LIKE '%". $search."%' OR address LIKE '%". $search."%')".
-			" AND user_id='".$user_id."'";
-		}
-		else{
-			$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM contacts WHERE ".
-			"(first_name LIKE '%". $first_name."%' AND last_name LIKE '%". $last_name."%' AND " .
-			"email LIKE '%". $email."%' AND phone LIKE '%". $phone."%' AND address LIKE '%". $address."%')".
-			" AND user_id='".$user_id."'";
-		}*/
-
 		$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM contacts WHERE ".
-		"(CONCAT_WS(' ',first_name,last_name) '%". $search."%' OR email LIKE '%". $search."%' OR " .
+		"(CONCAT_WS(' ',first_name,last_name) LIKE '%". $search."%' OR email LIKE '%". $search."%' OR " .
 		"phone LIKE '%". $search."%' OR address LIKE '%". $search."%') AND user_id='".$user_id."'";
 
 		$result = $conn->query($sql);

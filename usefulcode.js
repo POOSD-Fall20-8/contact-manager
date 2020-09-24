@@ -120,7 +120,16 @@ function buildTable() {
 
     button.addEventListener("click", function()
     {
-      deleteContact(id);
+      var userPreference;
+
+      if (confirm("Do you want to delete contact?") == true) 
+      {
+         deleteContact(id);
+      } 
+      else 
+      {
+        userPreference = "Alright!";
+      }
       buildTable();
     });
 

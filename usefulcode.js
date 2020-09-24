@@ -35,13 +35,11 @@ function countContact(){
 
   try
 	{
-    //alert(addPayload);
 		request.send(addPayload);
 
 		var jsonObject = JSON.parse(request.responseText);
 
     var contacts = jsonObject.matched.length;
-    //alert("User: " + window.sessionStorage.getItem("user_id") + "Number of contacts: " + contacts);
     alert("Number of contacts: " + contacts);
 
 	}
@@ -84,7 +82,6 @@ function buildTable() {
 
   catch(err)
 {
-  alert(err.message);
   return false;
 }
 
@@ -104,57 +101,56 @@ function buildTable() {
 
     var id = contactInfo.record_id;
 
-    var button = document.createElement('button');
-    button.style.backgroundImage="url('https://img.icons8.com/android/24/000000/edit.png')";
-    button.style.width = "28px";
-    button.style.height = "28px";
-    button.style.borderRadius = "10px";
-    button.style.margin = "3px";
-    button.onmouseover = function() {
+    var editButton = document.createElement('input');
+    editButton.setAttribute("value","");
+    editButton.setAttribute("type", "image");
+    editButton.setAttribute("src","Images/editIcon.png");
+    editButton.style.width = "28px";
+    editButton.style.height = "28px";
+    //editButton.style.borderRadius = "10px";
+    editButton.style.margin = "3px";
+    editButton.onmouseover = function() {
     this.style.backgroundColor = "cyan";
     }
-    button.onmouseout = function() {
+    editButton.onmouseout = function() {
     this.style.backgroundColor = "";
     }
 
 
-    button.addEventListener("click", function()
+    editButton.addEventListener("click", function()
     {
-      editContact(contactInfo)
+      editContact(contactInfo);
     });
 
-    row.appendChild(button);
+    row.appendChild(editButton);
 
 
-    var button = document.createElement('button');
-    button.style.backgroundImage="url('https://img.icons8.com/android/24/000000/trash.png')";
-    button.style.width = "28px";
-    button.style.height = "28px";
-    button.style.borderRadius = "10px";
-    button.style.margin = "3px";
-    button.onmouseover = function() {
-    this.style.backgroundColor = "tomato";
+    var deleteButton = document.createElement('input');
+    deleteButton.setAttribute("value","");
+    deleteButton.setAttribute("type", "image");
+    deleteButton.setAttribute("src","Images/deleteIcon.png")
+    deleteButton.style.width = "28px";
+    deleteButton.style.height = "28px";
+  //  deleteButton.style.borderRadius = "10px";
+    deleteButton.style.margin = "3px";
+    deleteButton.onmouseover = function() {
+      this.style.backgroundColor = "tomato";
     }
-    button.onmouseout = function() {
-    this.style.backgroundColor = "";
+    deleteButton.onmouseout = function() {
+      this.style.backgroundColor = "";
     }
 
-    button.addEventListener("click", function()
+    deleteButton.addEventListener("click", function()
     {
 
       if (confirm("Are you sure you want to delete contact?") == true)
       {
          deleteContact(id);
       }
-      else
-      {
-        alert("that was a close one!");
-      }
       buildTable();
     });
 
-    row.appendChild(button);
-
+    row.appendChild(deleteButton);
 
 
     tableBody.appendChild(row);
@@ -215,7 +211,6 @@ function updateForm() {
 
     catch(err)
   {
-    alert(err.message);
     return false;
   }
 
@@ -226,8 +221,6 @@ function updateForm() {
 
 
 function deleteContact(record_id){
-
-  alert("Delete:" + record_id);
   var deletePayload = '{"record_id" : "' + record_id + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
   var url = urlBegin + '/deleteContact' + urlEnding;
 
@@ -245,22 +238,17 @@ function deleteContact(record_id){
 
     if(error == "Record Not Found")
     {
-      //document.getElementById("loginResult").innerHTML = "error: no user found";
-      //alert("liar");
       return false;
     }
 
     if(error == "")
     {
-      alert("contact successfully deleted")
-      //alert("userid: " + window.sessionStorage.getItem("user_id"));
       return false;
     }
   }
 
   catch(err)
   {
-  alert(err.message);
   return false;
   }
 
@@ -306,7 +294,6 @@ function doLogin(){
     {
       window.sessionStorage.setItem("user_id",jsonObject.user_id);
       window.location.href = "home.html";
-      //alert("userid: " + window.sessionStorage.getItem("user_id"));
       return false;
     }
 
@@ -323,7 +310,6 @@ function doLogin(){
 function doLogout(){
   window.sessionStorage.setItem("user_id","-1");
   window.location.replace("index.html");
-  //alert("userid: " + window.sessionStorage.getItem("user_id"));
 }
 
 function createLogin(){
@@ -443,6 +429,4 @@ function submitForm() {
   document.getElementById("contactPrompt").innerHTML = err.message;
   return false;
 }
-
-  //alert(contactPayload);
 }

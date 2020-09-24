@@ -120,17 +120,7 @@ function buildTable() {
 
     button.addEventListener("click", function()
     {
-      var userPreference;
-
-      if (confirm("Do you want to delete contact?") == true) 
-      {
-         deleteContact(id);
-      } 
-      else 
-      {
-        userPreference = "Alright!";
-      }
-      //deleteContact(id);
+      deleteContact(id);
       buildTable();
     });
 
@@ -189,7 +179,7 @@ function updateForm() {
 
       if(error == "")
       {
-        //alert("contact successfully updated");
+        alert("contact successfully updated");
         return false;
       }
 
@@ -209,7 +199,7 @@ function updateForm() {
 
 function deleteContact(record_id){
 
-  //alert("Delete:" + record_id);
+  alert("Delete:" + record_id);
   var deletePayload = '{"record_id" : "' + record_id + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
   var url = urlBegin + '/deleteContact' + urlEnding;
 
@@ -234,7 +224,7 @@ function deleteContact(record_id){
 
     if(error == "")
     {
-      //alert("contact successfully deleted")
+      alert("contact successfully deleted")
       //alert("userid: " + window.sessionStorage.getItem("user_id"));
       return false;
     }

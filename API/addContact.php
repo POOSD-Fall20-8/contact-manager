@@ -27,23 +27,29 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
-		$sql = "SELECT record_id FROM contacts WHERE (first_name='". $first_name."'".
-			" AND last_name='". $last_name."' AND email='". $email."' AND ".
-			" phone = '". $phone."' AND address= '". $address."' AND user_id='".$user_id."')";
-		$result = $conn->query($sql);
-		if ($result->num_rows > 0){
-			returnWithError("Duplicate Contact");
+		if (($first_name . $last_name . $email . $phone . $address) == ""){
+			//no blank entries
+			returnWithError("Contact Must Not Be Empty");
 		}
-		else {
-			$sql = "INSERT INTO contacts (address,email,first_name,last_name,phone,user_id,date_added)".
-							" VALUES ('". $address . "','". $email . "', '". $first_name ."','" . $last_name ."','".
-							$phone ."','". $user_id . "', NOW())";
-			$result = $conn->query($sql);
-			if(result == TRUE){
-				returnWithInfo($conn->insert_id);
-			}
-			else{
-				returnWithError($conn->error);
+		else{
+				$sql = "SELECT record_id FROM contacts WHERE (first_name='". $first_name."'".
+					" AND last_name='". $last_name."' AND email='". $email."' AND ".
+					" phone = '". $phone."' AND address= '". $address."' AND user_id='".$user_id."')";
+				$result = $conn->query($sql);
+				if ($result->num_rows > 0){
+					returnWithError("Duplicate Contact");
+				}
+				else {
+					$sql = "INSERT INTO contacts (address,email,first_name,last_name,phone,user_id,date_added)".
+									" VALUES ('". $address . "','". $email . "', '". $first_name ."','" . $last_name ."','".
+									$phone ."','". $user_id . "', NOW())";
+					$result = $conn->query($sql);
+					if(result == TRUE){
+						returnWithInfo($conn->insert_id);
+					}
+					else{
+						returnWithError($conn->error);
+					}
 			}
 		}
 		$conn->close();

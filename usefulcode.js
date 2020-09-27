@@ -1,29 +1,5 @@
-var urlBegin = 'http://contactmanageronline.com/API';
+var urlBegin = 'http://firstcontacts.net/API';
 var urlEnding = '.php';
-
-function myFunction() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-
 
 function countContact(){
   var addPayload = '{"search" : "", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
@@ -77,7 +53,6 @@ function buildTable() {
     var jsonObject = JSON.parse(request.responseText);
 
     var contactsArr = jsonObject.info.matched;
-
   }
 
   catch(err)
@@ -216,9 +191,6 @@ function updateForm() {
 
 
   }
-
-
-
 
 function deleteContact(record_id){
   var deletePayload = '{"record_id" : "' + record_id + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
@@ -394,9 +366,6 @@ function submitForm() {
   var phony = document.getElementById("pnum").value;
   var addy = document.getElementById("addy").value;
   var userid = window.sessionStorage.getItem("user_id");
-
-
-
 
 
   var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : "' + userid +  '"}'

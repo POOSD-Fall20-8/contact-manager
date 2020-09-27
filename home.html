@@ -12,14 +12,14 @@
 
     <br><br>
     <div id="welcomealien">Welcome... alien!</div>
-
+      <button id="accountButton" onclick="return updateAccount();">Account</button>
     <button id="logoutButton" onclick="return doLogout();">Logout</button>
     <br><br><br><br>
 
 
 
 
-    <div class="form-popup" id="myForm">
+    <div class="form-popup" id="addContactForm">
       <form class="form-container">
         <p id="contactPrompt"></p>
         <h1>Add a Contact</h1>
@@ -39,12 +39,12 @@
         <label for="addy"><b>Address</b></label>
         <input id="addy" type="text" placeholder="Enter Address">
 
-        <button type="submit" class="btn" onclick="submitForm(); closeForm(); return buildTable()">Add</button>
-        <button type="button" class="btn cancel" onclick="return closeForm()">Close</button>
+        <button type="submit" class="btn" onclick="submitAddContactForm(); closeAddContactForm(); return buildTable()">Add</button>
+        <button type="button" class="btn cancel" onclick="return closeAddContactForm()">Close</button>
       </form>
     </div>
 
-    <div class="form-popup" id="myForm2">
+    <div class="form-popup" id="editContactForm">
       <form class="form-container">
         <p id="contactPrompt2"></p>
         <h1>Update a Contact</h1>
@@ -66,15 +66,14 @@
 
         <input type="hidden" id="recordid">
 
-        <button type="submit" class="btn" onclick="updateForm(); closeForm2(); return buildTable()">Update</button>
-        <button type="button" class="btn cancel" onclick="return closeForm2()">Close</button>
+        <button type="submit" class="btn" onclick="submitEditContactForm(); closeEditContactForm(); return buildTable()">Update</button>
+        <button type="button" class="btn cancel" onclick="return closeEditContactForm()">Close</button>
       </form>
     </div>
 
-
     <input type="text" id="searchBar" placeholder="Search for contact...">
     <button type="button" class="btnSubmit" onclick="buildTable()"></button>
-    <button id="open-button" onclick="openForm()">Add Contact</button>
+    <button id="open-button" onclick="openAddContactForm()">Add Contact</button>
 
 <table id="myTable">
   <tr class="header" id="headers">
@@ -84,59 +83,8 @@
     <th style="width:10%;">Phone Number</th>
     <th style="width:18%;">Address</th>
     <th style="width:4%;">Tool</th>
-
-  </tr>
-
-
-</table>
-
-
-  <!--
-  <tr>
-    <td>Rick</td>
-    <td>Leinecker</td>
-    <td>rickl@gmail.com</td>
-    <td>407-800-8000</td>
-    <td>123 street</td>
-  </tr>
-  <tr>
-    <td>Austin</td>
-    <td>Bacchus</td>
-    <td>austinbacchus@gmail.com</td>
-    <td>407-800-8000</td>
-    <td>124 street</td>
-  </tr>
-  <tr>
-    <td>Kanye</td>
-    <td>West</td>
-    <td>yeezy@gmail.com</td>
-    <td>407-800-8000</td>
-    <td>125 street</td>
-  </tr>
-  <tr>
-    <td>Steve</td>
-    <td>Jobs</td>
-    <td>stevejobs@gmail.com</td>
-    <td>407-800-8000</td>
-    <td>126 street</td>
-  </tr>
-  <tr>
-    <td>Pablo</td>
-    <td>Escobar</td>
-    <td>elchapo@gmail.com</td>
-    <td>407-800-8000</td>
-    <td>127 street</td>
-  </tr>
-  <tr>
-    <td>James</td>
-    <td>Bond</td>
-    <td>topsecret@gmail.com</td>
-    <td>407-800-8000</td>
-    <td>007 street</td>
   </tr>
 </table>
-<button id="editContact" onclick="return editContact();">Edit/delete</button>
--->
 
   </body>
 

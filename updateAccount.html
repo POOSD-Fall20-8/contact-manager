@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Update Account Information</title>
+    <link rel="stylesheet" href="formatting.css">
+    <script type="text/javascript" src="usefulcode.js"></script>
+    <script type="text/javascript" src="md5.js"></script>
+  </head>
+
+  <body>
+    <form id="update" action="updateAccount.html" method="post">
+      <p id="updateResult"></p>
+      <h1>Update Account</h1>
+      <input type="text" id="firstName" placeholder="First Name">
+      <input type="text" id="lastName" placeholder="Last Name">
+      <input type="password" id="newPassword" placeholder="Set a new password">
+      <input type="password" id="loginPassword" placeholder="Enter old password to confirm changes">
+      <button id="updateButton" onclick="return submitAccountUpdate();">Submit</button>
+      <a href="home.html">Back to Home</a>
+    </form>
+  </body>
+
+</html>

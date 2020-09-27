@@ -28,7 +28,6 @@ function countContact(){
 
 }
 
-
 function buildTable() {
   search = document.getElementById("searchBar").value;
   //last_name = document.getElementById("searchBar2").value;
@@ -66,7 +65,7 @@ function buildTable() {
 
   contactsArr.forEach(function(contactInfo){
     var row = document.createElement('tr');
-    Object.entries(contactInfo).forEach(function([key,value]){
+    Object.entries(contactInfo).forEach(function([key,value]){closeEditContactForm
       if(key!='record_id'){
         var cell = document.createElement('td');
         cell.appendChild(document.createTextNode(value));
@@ -148,11 +147,11 @@ function editContact(contactInfo) {
   document.getElementById("pnum2").value = contactInfo.phone;
   document.getElementById("addy2").value = contactInfo.address;
   document.getElementById("recordid").value = contactInfo.record_id;
-  openForm2();
+  openEditContactForm();
 
 }
 
-function updateForm() {
+function submitEditContactForm() {
 
     var recordid = document.getElementById("recordid").value;
     var firsty = document.getElementById("fname2").value;
@@ -287,11 +286,14 @@ function doLogout(){
 function createLogin(){
   var user = document.getElementById("loginName").value;
   var pass = document.getElementById("loginPassword").value;
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
 
   var hashedpass = md5( pass );
   document.getElementById("createResult").innerHTML = "";
 
-  var loginPayload = '{"login" : "' + user + '", "password" : "' + hashedpass + '"}';
+  var loginPayload = '{"login" : "' + user + '", "password" : "' + hashedpass +
+  '" ,"first_name" : "'+firstName+'", "last_name" : "'+lastName+'"}';
   var url = urlBegin + '/register' + urlEnding;
 
   var request = new XMLHttpRequest();
@@ -338,28 +340,28 @@ function createLogin(){
 
 }
 
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
+function openAddContactForm() {
+  document.getElementById("addContactForm").style.display = "block";
 }
 
-function openForm2() {
-  document.getElementById("myForm2").style.display = "block";
+function openEditContactForm() {
+  document.getElementById("editContactForm").style.display = "block";
 }
 
-function closeForm() {
+function closeAddContactForm() {
   document.getElementById("fname").value = "";
   document.getElementById("lname").value = "";
   document.getElementById("email").value = "";
   document.getElementById("pnum").value = "";
   document.getElementById("addy").value = "";
-  document.getElementById("myForm").style.display = "none";
+  document.getElementById("addContactForm").style.display = "none";
 }
 
-function closeForm2() {
-  document.getElementById("myForm2").style.display = "none";
+function closeEditContactForm() {
+  document.getElementById("editContactForm").style.display = "none";
 }
 
-function submitForm() {
+function submitAddContactForm() {
   var firsty = document.getElementById("fname").value;
   var lasty = document.getElementById("lname").value;
   var emmy = document.getElementById("email").value;
@@ -398,4 +400,50 @@ function submitForm() {
   document.getElementById("contactPrompt").innerHTML = err.message;
   return false;
 }
+}
+
+function updateAccount(){
+  // need to fill in existing first and last name on new page 
+  location.href = "updateAccount.html";
+}
+
+function submitAccountUpdate(){
+  //WIP
+    var userid = window.sessionStorage.getItem("user_id");
+    var first_name = document.getElementById("firstName").value;
+    var last_name = document.getElementById("lastName").value;
+    var password = document.getElementById("newPassword").value;
+    var hashedpass = md5(password);
+
+    var payload = '{"first_name" : "' + first_name + '", "last_name" : "' + last_name +
+     '", "password" : "' + hashedpass + '", "user_id" : "' + user_id+  '"}';
+    var url = urlBegin + '/updateAccount' + urlEnding;
+
+    var request = new XMLHttpRequest();
+    request.open("POST", url, false);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try
+  	{
+  		request.send(contactPayload);
+
+  		var jsonObject = JSON.parse(request.responseText);
+
+      error = jsonObject.error;
+
+      if(error == "")
+      {
+        return false;
+      }
+      else{
+        //?
+        return false;
+      }
+    }
+
+    catch(err)
+  {
+    // ?
+    return false;
+  }
 }

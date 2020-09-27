@@ -183,6 +183,27 @@ div {
   box-shadow: 0 0 50px #39ff14;
 }
 
+#accountButton{
+    border:0;
+    background: none;
+    display: block;
+    margin-left: 85%;
+    text-align: center;
+    border: 2px solid black;
+    padding: 9px 30px;
+    outline: none;
+    color: lightgrey;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+#accountButton:hover {
+  color: #111;
+  background: teal;
+  box-shadow: 0 0 50px #39ff14;
+}
+
 #logoutButton{
   border:0;
   background: none;

@@ -4,11 +4,6 @@
 	$inData = getRequestInfo();
 
 	$search = $inData->search;
-	$first_name = $inData->first_name;
-	$last_name = $inData->last_name;
-	$email = $inData->email;
-	$phone = $inData->phone;
-	$address = $inData->address;
 	$user_id = $inData->user_id;
 
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");

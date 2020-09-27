@@ -32,7 +32,7 @@
 									" VALUES ('". $address . "','". $email . "', '". $first_name ."','" . $last_name ."','".
 									$phone ."','". $user_id . "', NOW())";
 					$result = $conn->query($sql);
-					if(result == TRUE){
+					if($result == TRUE){
 						returnWithInfo(buildContactJSON($first_name,$last_name,$email, $phone,$address,$conn->insert_id));
 					}
 					else{

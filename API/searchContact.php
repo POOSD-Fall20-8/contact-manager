@@ -28,7 +28,7 @@
 				$matched .= ',';
 			}
 			$matched = substr_replace($matched,']',-1);
-			returnWithInfo($matched);
+			returnWithInfo('{"matched": '.$matched.'}');
 		}
 		else {
 			returnWithError("No Records Found");

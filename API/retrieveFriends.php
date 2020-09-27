@@ -15,6 +15,7 @@
 		if ($result->num_rows > 0){
 			$friends = '[';
 			while($row = $result->fetch_assoc()){
+				$friend_id = $row[friend_id];
 				$sql = "SELECT login,first_name,last_name FROM users WHERE user_id='".$friend_id."'";
 				$friendResult = $conn->query($sql);
 				if($friendResult->num_rows > 0){

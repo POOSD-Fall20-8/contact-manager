@@ -19,7 +19,7 @@
       returnWithError("Already Friends");
     }
     else{
-      $sql = "INSERT INTO friends (user_id,friend_id) VALUES ('".$user_id."','".$friend_id"')";
+      $sql = "INSERT INTO friends (user_id,friend_id) VALUES ('".$user_id."','".$friend_id."')";
       $result = $conn->query($sql);
       if($result == TRUE){
         returnWithInfo(buildFriendJSON($user_id,$friend_id));

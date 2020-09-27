@@ -2,16 +2,6 @@
 
 	include 'utils.php';
 
-	function returnWithError( $err ){
-		$retValue = '{"error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
-
-	function returnWithInfo( $login ){
-		$retValue = '{"login":"' . $login . '","error":""}';
-		sendResultInfoAsJson( $retValue );
-	}
-
 	$inData = getRequestInfo();
 
 	$login = $inData->login;
@@ -38,7 +28,7 @@
 			$sql = "INSERT INTO users (login,password,first_name,last_name) VALUES ('" . $login . "','" . $password . "','" . $first_name . "','" . $last_name . "')";
 				$result = $conn->query($sql);
 				if( $result == TRUE ){
-					returnWithInfo($login);
+					returnWithInfo(buildUserJSON($login,$first_name,$last_name,$conn->insert_id));
 				}
 				else {
 					returnWithError( $conn->error);

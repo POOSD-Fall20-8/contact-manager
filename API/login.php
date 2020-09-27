@@ -1,16 +1,6 @@
 <?php
 	include 'utils.php';
 
-	function returnWithError( $err ){
-		$retValue = '{"user_id":0,"first_name":"","last_name":"","error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
-
-	function returnWithInfo( $first, $last, $id ){
-		$retValue = '{"user_id":' . $id . ',"first_name":"' . $first . '","last_name":"' . $last . '","error":""}';
-		sendResultInfoAsJson( $retValue );
-	}
-
 	$inData = getRequestInfo();
 
 	$login = $inData->login;
@@ -26,7 +16,7 @@
 		if ($result->num_rows > 0){
 			$row = $result->fetch_assoc();
 			if ($row[password] == $password){
-				returnWithInfo($row[first_name], $row[last_name], $row[user_id] );
+				returnWithInfo(buildUserJSON($login, $row[first_name], $row[last_name], $row[user_id] ));
 			}
 			else {
 				returnWithError("Incorrect Password");

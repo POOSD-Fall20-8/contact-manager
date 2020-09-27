@@ -1,19 +1,7 @@
 <?php
 	include 'utils.php';
 
-	function returnWithError( $err ){
-		$retValue = '{"error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
-
-	function returnWithInfo( $id ){
-		$retValue = '{"record_id":"' . $id   . '","error":""}';
-		sendResultInfoAsJson( $retValue );
-	}
-
 	$inData = getRequestInfo();
-
-
 
 	$first_name = $inData->first_name;
 	$last_name = $inData->last_name;
@@ -45,7 +33,7 @@
 									$phone ."','". $user_id . "', NOW())";
 					$result = $conn->query($sql);
 					if(result == TRUE){
-						returnWithInfo($conn->insert_id);
+						returnWithInfo(buildContactJSON($first_name,$last_name,$email, $phone,$address,$conn->insert_id));
 					}
 					else{
 						returnWithError($conn->error);

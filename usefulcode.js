@@ -39,7 +39,7 @@ function countContact(){
 
 		var jsonObject = JSON.parse(request.responseText);
 
-    var contacts = jsonObject.matched.length;
+    var contacts = jsonObject.info.matched.length;
     alert("Number of contacts: " + contacts);
 
 	}
@@ -76,7 +76,7 @@ function buildTable() {
 
     var jsonObject = JSON.parse(request.responseText);
 
-    var contactsArr = jsonObject.matched;
+    var contactsArr = jsonObject.info.matched;
 
   }
 
@@ -292,7 +292,7 @@ function doLogin(){
 
     if(error == "")
     {
-      window.sessionStorage.setItem("user_id",jsonObject.user_id);
+      window.sessionStorage.setItem("user_id",jsonObject.info.user_id);
       window.location.href = "home.html";
       return false;
     }
@@ -413,7 +413,7 @@ function submitForm() {
 		var jsonObject = JSON.parse(request.responseText);
 
     error = jsonObject.error;
-    contactid = jsonObject.record_id;
+    contactid = jsonObject.info.record_id;
 
     if(error == "")
     {

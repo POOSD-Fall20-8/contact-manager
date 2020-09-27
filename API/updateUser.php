@@ -17,9 +17,9 @@
 		$sql = "UPDATE users SET ";
 		$sql .= "first_name = '" . $first_name ."',";
 		$sql .= "last_name = '" . $last_name ."',";
-		$sql .= "password = '" . $password ."',";
-		$sql .= "WHERE user_id = '". $user_id ."'";
-		
+		$sql .= "password = '" . $password ."'";
+		$sql .= " WHERE user_id = '". $user_id ."'";
+
 		$result = $conn->query($sql);
 		if ($conn->affected_rows > 0){
 			returnWithInfo(buildUserJSON($login,$first_name,$last_name,$user_id));
@@ -27,7 +27,7 @@
 		else {
 			returnWithError("Could Not Match Record");
 		}
-        $conn->close();
+    $conn->close();
 	}
 
 

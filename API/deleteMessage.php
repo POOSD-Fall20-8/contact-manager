@@ -10,7 +10,7 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
-    $sql = "DELETE FROM messages WHERE message_id='".$message_id"'";
+    $sql = "DELETE FROM messages WHERE message_id='".$message_id."'";
 		$result = $conn->query($sql);
 		if ($conn->affected_rows > 0){
 			returnWithInfo('{"message_id":"'.$message_id.'"}');

@@ -13,7 +13,7 @@
 	}
 	else{
     $sql = "SELECT user_id,friend_id FROM friends WHERE (user_id='".$user_id."'".
-      "AND friend_id='".$friend_id"')";
+      "AND friend_id='".$friend_id."')";
 		$result = $conn->query($sql);
     if($result->num_rows > 0){
       returnWithError("Already Friends");

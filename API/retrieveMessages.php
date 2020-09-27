@@ -11,9 +11,9 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
-    $sql = "SELECT message_id,sender_id,contact_id,message_text,status FROM messages WHERE recipient_id='".$recipient_id"'";
+    $sql = "SELECT message_id,sender_id,contact_id,message_text,status FROM messages WHERE recipient_id='".$recipient_id."'";
 		if($status != ""){
-			$sql .= " AND status='".$status"'";
+			$sql .= " AND status='".$status."'";
 		}
 
 		$result = $conn->query($sql);

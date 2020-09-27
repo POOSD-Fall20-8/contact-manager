@@ -3,7 +3,7 @@
 
 	$inData = getRequestInfo();
 
-	$recipient_id = $inData->$recipient_id;
+	$recipient_id = $inData->recipient_id;
 	$status = $inData->status;
 
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
@@ -15,7 +15,6 @@
 		if($status != ""){
 			$sql .= " AND status='".$status."'";
 		}
-
 		$result = $conn->query($sql);
 
 		if ($result->num_rows > 0){

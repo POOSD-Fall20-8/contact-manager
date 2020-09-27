@@ -27,7 +27,7 @@
 			returnWithInfo('{"messages":'.$messages.'}');
 		}
 		else {
-			returnWithInfo('"messages":[]');
+			returnWithInfo('{"messages":[]}');
 		}
 		$conn->close();
 	}

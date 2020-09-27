@@ -5,6 +5,7 @@
 	$inData = getRequestInfo();
 
 	$user_id = $inData->user_id;
+	$login = $inData->login;
 	$password = $inData->password;
 	$first_name = $inData->first_name;
 	$last_name = $inData->last_name;
@@ -17,6 +18,7 @@
 		$sql = "UPDATE users SET ";
 		$sql .= "first_name = '" . $first_name ."',";
 		$sql .= "last_name = '" . $last_name ."',";
+		$sql .= "login = '".$login."',";
 		$sql .= "password = '" . $password ."'";
 		$sql .= " WHERE user_id = '". $user_id ."'";
 

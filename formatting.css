@@ -351,12 +351,13 @@ div {
 
 /* The popup form - hidden by default */
 .form-popup {
-  width: 300px;
+  width: 250px;
+  height: 650px;
   display: none;
   position: absolute;
-  top: calc(50% - 325px);
-  left: calc(50% - 150px);
-  margin: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   border: 3px solid #03913e;
   z-index: 9;
   box-shadow: 0 0 50px #39ff14;

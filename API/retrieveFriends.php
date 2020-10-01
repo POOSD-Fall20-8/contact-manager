@@ -10,7 +10,7 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
-		//either user in a friend pair can be the user or the friend id, 
+		//either user in a friend pair can be the user or the friend id,
     $sql = "SELECT friend_id FROM friends WHERE user_id='".$user_id."'";
 		$result = $conn->query($sql);
 		$friends = '[';
@@ -37,11 +37,12 @@
 				$friends .= ',';
 			}
 		}
+		if($friends == '['){
+			returnWithInfo('"friends":[]');
+		}
+		else{
 			$friends = substr_replace($friends,']',-1);
 			returnWithInfo('{"friends":'.$friends.'}');
-		}
-		else {
-			returnWithInfo('"friends":[]');
 		}
 		$conn->close();
 	}

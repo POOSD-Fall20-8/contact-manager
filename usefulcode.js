@@ -112,7 +112,6 @@ function doLogin() {
     document.getElementById("loginResult").innerHTML = err.message;
     return false;
   }
-
 }
 
 // Functions for home.html
@@ -472,6 +471,26 @@ function buildFriendsTable(){
         row.appendChild(cell);
       }
     });
+    var messageButton = document.createElement('input');
+    messageButton.setAttribute("value","");
+    messageButton.setAttribute("type", "image");
+    messageButton.setAttribute("src","Images/messageIcon.png");
+    messageButton.style.width = "18px";
+    messageButton.style.height = "18px";
+    //editButton.style.borderRadius = "10px";
+    //messageButton.style.margin = "3px";
+    messageButton.onmouseover = function() {
+    this.style.backgroundColor = "lime";
+    }
+    messageButton.onmouseout = function() {
+    this.style.backgroundColor = "";
+    }
+
+    messageButton.addEventListener("click", function()
+    {
+      alert("send a message to "+friendInfo.user_id);
+    });
+    row.appendChild(messageButton);
     tableBody.appendChild(row);
   });
   if (table.childNodes.length > 2){
@@ -480,6 +499,5 @@ function buildFriendsTable(){
   else{
     table.appendChild(tableBody);
   }
-
   return false;
 }

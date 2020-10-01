@@ -68,7 +68,6 @@ function doLogin() {
   var user = document.getElementById("loginName").value;
   var pass = document.getElementById("loginPassword").value;
   var hashedpass = md5(pass);
-
   document.getElementById("loginResult").innerHTML = "";
 
   var loginPayload = '{"login" : "' + user + '", "password" : "' + hashedpass + '"}';
@@ -395,7 +394,6 @@ function populateAccountFields(){
 }
 
 function submitAccountUpdate() {
-  //WIP
     var user_id = window.sessionStorage.getItem("user_id");
     var first_name = document.getElementById("firstName").value;
     var last_name = document.getElementById("lastName").value;
@@ -751,6 +749,117 @@ function addFriend(){
   }
 }
 
+function goToHome(){
+  window.location.href = "home.html";
+  return false;
+}
+
 function openInbox(){
   window.location.href = "inbox.html";
+  return false;
+}
+
+function buildMessageTable(){
+  var messagePayload = '{"recipient_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  var url = urlBegin + '/retrieveMessages' + urlEnding;
+
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try{
+    request.send(messagePayload);
+
+    var jsonObject = JSON.parse(request.responseText);
+
+    var messagesArr = jsonObject.info.messages;
+  }
+
+  catch(err){
+  return false;
+}
+
+  var table = document.getElementById('inboxTable');
+
+  tableBody = document.createElement('tbody');
+  if(messagesArr){
+    messagesArr.forEach(function(messageInfo){
+      var row = document.createElement('tr');
+      Object.entries(messageInfo).forEach(function([key,value]){
+        if(key=='sender_id'){
+          var cell = document.createElement('td');
+          cell.appendChild(document.createTextNode(value));
+          row.appendChild(cell);
+        }
+        if(key=='message_text' ){
+          var cell = document.createElement('td');
+          cell.appendChild(document.createTextNode(value));
+          row.appendChild(cell);
+        }
+      });
+
+/*
+      var editButton = document.createElement('input');
+      editButton.setAttribute("value","");
+      editButton.setAttribute("type", "image");
+      editButton.setAttribute("src","Images/editIcon.png");
+      editButton.style.width = "28px";
+      editButton.style.height = "28px";
+      //editButton.style.borderRadius = "10px";
+      editButton.style.margin = "3px";
+      editButton.onmouseover = function() {
+      this.style.backgroundColor = "cyan";
+      }
+      editButton.onmouseout = function() {
+      this.style.backgroundColor = "";
+      }
+
+
+      editButton.addEventListener("click", function()
+      {
+        editContact(contactInfo);
+      });
+
+      row.appendChild(editButton);
+
+
+      var deleteButton = document.createElement('input');
+      deleteButton.setAttribute("value","");
+      deleteButton.setAttribute("type", "image");
+      deleteButton.setAttribute("src","Images/deleteIcon.png")
+      deleteButton.style.width = "28px";
+      deleteButton.style.height = "28px";
+    //  deleteButton.style.borderRadius = "10px";
+      deleteButton.style.margin = "3px";
+      deleteButton.onmouseover = function() {
+        this.style.backgroundColor = "tomato";
+      }
+      deleteButton.onmouseout = function() {
+        this.style.backgroundColor = "";
+      }
+
+      deleteButton.addEventListener("click", function()
+      {
+
+        if (confirm("Are you sure you want to delete contact?") == true)
+        {
+           deleteContact(id);
+        }
+        buildTable();
+      });
+
+      row.appendChild(deleteButton);
+*/
+      tableBody.appendChild(row);
+    });
+  }
+
+  if (table.childNodes.length > 2){
+      table.replaceChild(tableBody,table.childNodes[table.childNodes.length-1]);
+  }
+  else{
+    table.appendChild(tableBody);
+  }
+
+  return false;
 }

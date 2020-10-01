@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="formatting.css">
+    <script type="text/javascript" src="usefulcode.js"></script>
+  </head>
+
+  <body onload="buildMessageTable();">
+
+    <br><br>
+    <div id="inboxWelcome">Inbox</div>
+    <button id="logoutButton" onclick="return doLogout();">Logout</button>
+    <button id="accountButton" onclick="return updateAccount();">Account</button>
+    <button id="homeButton" onclick = "return goToHome();">Home</button>
+    <br><br><br><br>
+
+    <div class="message-form" id="messageForm">
+      <form class="form-container">
+        <input type="hidden" id="friendID">
+        <h1 id="friendInfo"></h1>
+        <textarea id="messageBox" name="messageBox" rows="10" cols="30" placeholder="Enter a message"></textarea>
+        <div id="attachContactLabel">Attach a Contact</div>
+        <input type="text" id="attachContactBar" onkeyup = "buildAttachList()" placeholder="Search">
+        <div id="attachContactDropdown"></div>
+        <button type="submit" class="btn" onclick="return submitMessageForm();">Send</button>
+        <button type="reset" class="btn cancel" onclick="return closeMessageForm()">Cancel</button>
+      </form>
+    </div>
+
+<table id="inboxTable">
+  <tr class="header" id="headers">
+    <th style="width:8%;">From</th>
+    <th style="width:8%;">Preview</th>
+  </tr>
+</table>
+
+  </body>
+
+</html>

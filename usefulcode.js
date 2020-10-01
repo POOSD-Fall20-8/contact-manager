@@ -406,7 +406,7 @@ function submitAccountUpdate() {
     var hashOldPass = md5(oldPass);
 
     if(!verifyLogin(window.sessionStorage.getItem("login"),hashOldPass)){
-      //error
+      document.getElementById("updateResult").innerHTML = "Current password incorrect";
       return false;
     }
     if(first_name == ""){
@@ -420,7 +420,7 @@ function submitAccountUpdate() {
     }
 
     if ((password != password2)){
-      //error message
+      document.getElementById("updateResult").innerHTML = "Passwords must match";
       return false;
     }
     if(password == ""){
@@ -443,15 +443,16 @@ function submitAccountUpdate() {
       error = jsonObject.error;
 
       if(error == ""){
+        window.location.href = "home.html";
         return false;
       }
       else{
-        //?
+        document.getElementById("updateResult").innerHTML = error;
         return false;
       }
     }
     catch(err){
-    // ?
+    document.getElementById("updateResult").innerHTML = err;
     return false;
   }
 }

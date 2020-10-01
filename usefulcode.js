@@ -508,8 +508,54 @@ function openMessageForm(friend_info){
 }
 
 function submitMessageForm(){
+  /*
+  $sender_id = $inData->sender_id;
+  $recipient_id = $inData->recipient_id;
+  $contact_id = $inData->contact_id;
+  $message_text = $inData->message_text;
+  $status = UNREAD;
+  */
+  var dropdown = document.getElementById("attachListBody");
+  if (dropdown){
+      var attachID = dropdown.options[dropdown.selectedIndex].value;
+  }
+
+
+  var messagePayload = '{"sender_id" : "' + window.sessionStorage.getItem("user_id") + '", "recipient_id" : "'
+  + document.getElementById("friendID").value + '",';
+  if(dropdown){
+    messagePayload += '"contact_id" : "'+attachID+ '",';
+  }
+  messagePayload+='"message_text" : "'+document.getElementById("messageBox").value+'"}';
   closeMessageForm();
-  return false;
+  var url = urlBegin + '/sendMessage' + urlEnding;
+  var request = new XMLHttpRequest();
+
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try
+  {
+    request.send(messagePayload);
+    var jsonObject = JSON.parse(request.responseText);
+    error = jsonObject.error;
+
+    if(error == "")
+    {
+      //success
+      return false;
+    }
+    else{
+      //do whatever
+      return false;
+    }
+
+  }
+
+  catch(err)
+  {
+    return false;
+  }
 }
 
 function closeMessageForm(){
@@ -544,11 +590,13 @@ function buildAttachList(){
   list.style.display = "inline"
   list.style.width = "40%";
   var listBody = document.createElement("select");
+  listBody.id = "attachListBody";
   listBody.style.width = "100%";
   if(contactsArr){
     contactsArr.forEach(function(contactInfo){
       var option = document.createElement('option');
       option.appendChild(document.createTextNode(contactInfo.first_name + " " + contactInfo.last_name));
+      option.value = contactInfo.record_id;
       listBody.appendChild(option);
     });
   }

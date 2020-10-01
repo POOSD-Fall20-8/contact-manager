@@ -38,7 +38,7 @@
   }
 
   function buildUserJSON($login, $first, $last, $id ){
-		$userInfo = '{"login:":"'.$login.'","user_id":' . $id . ',"first_name":"' . $first . '","last_name":"' . $last . '"}';
+		$userInfo = '{"login":"'.$login.'","user_id":' . $id . ',"first_name":"' . $first . '","last_name":"' . $last . '"}';
 		return $userInfo;
 	}
 

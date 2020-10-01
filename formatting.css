@@ -398,7 +398,7 @@ div {
 /* The popup form - hidden by default */
 .form-popup {
   width: 250px;
-  height: 650px;
+  height: 550px;
   display: none;
   position: absolute;
   left: 50%;
@@ -412,7 +412,8 @@ div {
 /* Full-width input fields */
 .form-container input[type=text], .form-container input[type=password] {
   width: 80%;
-  padding: 15px;
+  height: 12px;
+  padding: 8px;
   margin: 5px 0 22px 0;
   border: none;
   background: #f1f1f1;
@@ -438,6 +439,7 @@ div {
   border: none;
   cursor: pointer;
   width: 100%;
+  height: 12%;
   margin-bottom:10px;
   opacity: 0.8;
 

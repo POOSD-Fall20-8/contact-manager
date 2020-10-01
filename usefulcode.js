@@ -725,8 +725,7 @@ function buildAttachList(){
 function addFriend(){
   if (event.key === 'Enter') {
     var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '", "friend_name" : "' + document.getElementById("friendInput").value + '"}';
-    var url = 'http://firstcontacts.net/API/addFriend.php';
-    alert(url);
+    var url = urlBegin + '/addFriend' + urlEnding;
     var request = new XMLHttpRequest();
 
     request.open("POST", url, false);
@@ -736,13 +735,12 @@ function addFriend(){
       request.send(payload);
       var jsonObject = JSON.parse(request.responseText);
       error = jsonObject.error;
-
       if(error == ""){
         //success
+        buildFriendsTable();
         return false;
       }
       else{
-        alert("No user found");
         return false;
       }
     }

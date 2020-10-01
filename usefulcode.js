@@ -457,6 +457,30 @@ function submitAccountUpdate() {
   }
 }
 
+function verifyLogin(user,hashedpass){
+  var loginPayload = '{"login" : "' + user + '", "password" : "' + hashedpass + '"}';
+  var url = urlBegin + '/login' + urlEnding;
+  var request = new XMLHttpRequest();
+
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try{
+		request.send(loginPayload);
+		var jsonObject = JSON.parse(request.responseText);
+    error = jsonObject.error;
+    if(error == ""){
+      return true;
+    }
+    else {
+      return false;
+    }
+	}
+  catch(err){
+    return false;
+  }
+}
+
 /*
 function toggleFriendsList() {
   friendPanel = document.getElementById("friendPanel");
@@ -471,6 +495,7 @@ function toggleFriendsList() {
   }
 }
 */
+
 function buildFriendsTable(){
 
   var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
@@ -529,6 +554,26 @@ function buildFriendsTable(){
       openMessageForm(friendInfo);
     });
     row.appendChild(messageButton);
+
+    var deleteButton = document.createElement('input');
+    deleteButton.setAttribute("value","");
+    deleteButton.setAttribute("type", "image");
+    deleteButton.setAttribute("src","Images/deleteIcon.png")
+    deleteButton.style.width = "18px";
+    deleteButton.style.height = "18px";
+    deleteButton.onmouseover = function() {
+      this.style.backgroundColor = "tomato";
+    }
+    deleteButton.onmouseout = function() {
+      this.style.backgroundColor = "";
+    }
+    deleteButton.addEventListener("click", function(){
+      if (confirm("Are you sure you want to delete friend?") == true){
+         deleteFriend(friendInfo.user_id);
+      }
+      buildFriendsTable();
+    });
+    row.appendChild(deleteButton);
     tableBody.appendChild(row);
   });
   if (table.childNodes.length > 2){
@@ -540,6 +585,33 @@ function buildFriendsTable(){
   return false;
 }
 
+function deleteFriend(friend_id){
+  var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '", "friend_id" : "'
+  + friend_id + '"}';
+  var url = urlBegin + '/deleteFriend' + urlEnding;
+  var request = new XMLHttpRequest();
+
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try{
+    request.send(payload);
+    var jsonObject = JSON.parse(request.responseText);
+    error = jsonObject.error;
+
+    if(error == ""){
+      //success
+      return false;
+    }
+    else{
+      //do whatever
+      return false;
+    }
+  }
+  catch(err){
+    return false;
+  }
+}
 function openMessageForm(friend_info){
     document.getElementById("messageForm").style.display = "block";
     document.getElementById("friendID").value = friend_info.user_id;
@@ -559,7 +631,6 @@ function submitMessageForm(){
   if (dropdown){
       var attachID = dropdown.options[dropdown.selectedIndex].value;
   }
-
 
   var messagePayload = '{"sender_id" : "' + window.sessionStorage.getItem("user_id") + '", "recipient_id" : "'
   + document.getElementById("friendID").value + '",';
@@ -650,29 +721,8 @@ function buildAttachList(){
   return false;
 }
 
-function verifyLogin(user,hashedpass){
-  var loginPayload = '{"login" : "' + user + '", "password" : "' + hashedpass + '"}';
-  var url = urlBegin + '/login' + urlEnding;
-  var request = new XMLHttpRequest();
 
-  request.open("POST", url, false);
-  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-  try{
-		request.send(loginPayload);
-		var jsonObject = JSON.parse(request.responseText);
-    error = jsonObject.error;
-    if(error == ""){
-      return true;
-    }
-    else {
-      return false;
-    }
-	}
-  catch(err){
-    return false;
-  }
-}
 function openInbox(){
-  return false;
+  window.location.href = "inbox.html";
 }

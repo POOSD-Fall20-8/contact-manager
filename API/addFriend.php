@@ -5,30 +5,35 @@
 
   //inData->whatever
   $user_id = $inData->user_id;
-  $friend_id = $inData->friend_id;
+	$friend_name = $inData->friend_name;
 
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	else{
-    $sql = "SELECT user_id,friend_id FROM friends WHERE (user_id='".$user_id."'".
-      "AND friend_id='".$friend_id."') OR (friend_id='".$user_id."'".
-	      "AND user_id='".$friend_id."')";
+		$sql = "SELECT user_id FROM users WHERE login='".$friend_name."'";
 		$result = $conn->query($sql);
-    if($result->num_rows > 0){
-      returnWithError("Already Friends");
-    }
-    else{
-      $sql = "INSERT INTO friends (user_id,friend_id) VALUES ('".$user_id."','".$friend_id."')";
-      $result = $conn->query($sql);
-      if($result == TRUE){
-        returnWithInfo(buildFriendJSON($user_id,$friend_id));
-      }
-      else{
-        returnWithError($conn->error);
-      }
-    }
+		if($result->num_rows > 0){
+			$friend_id = ($result->fetch_assoc())[user_id];
+			$sql = "SELECT user_id,friend_id FROM friends WHERE (user_id='".$user_id."'".
+				"AND friend_id='".$friend_id."') OR (friend_id='".$user_id."'".
+					"AND user_id='".$friend_id."')";
+			$result = $conn->query($sql);
+			if($result->num_rows > 0){
+				returnWithError("Already Friends");
+			}
+			else{
+				$sql = "INSERT INTO friends (user_id,friend_id) VALUES ('".$user_id."','".$friend_id."')";
+				$result = $conn->query($sql);
+				if($result == TRUE){
+					returnWithInfo(buildFriendJSON($user_id,$friend_id));
+				}
+				else{
+					returnWithError($conn->error);
+				}
+			}
+		}
 		$conn->close();
 	}
 

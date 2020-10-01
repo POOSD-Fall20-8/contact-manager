@@ -38,7 +38,7 @@
 			}
 		}
 		if($friends == '['){
-			returnWithInfo('"friends":[]');
+			returnWithInfo('{"friends":[]}');
 		}
 		else{
 			$friends = substr_replace($friends,']',-1);

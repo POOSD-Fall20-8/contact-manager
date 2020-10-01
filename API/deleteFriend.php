@@ -11,7 +11,8 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
-		$sql = "DELETE FROM friends WHERE user_id='". $user_id . "' AND friend_id='". $friend_id ."'";
+		$sql = "DELETE FROM friends WHERE (user_id='". $user_id . "' AND friend_id='". $friend_id ."')".
+		" OR (friend_id='". $user_id . "' AND user_id='". $friend_id ."')";
 		$result = $conn->query($sql);
 		if ($conn->affected_rows > 0){
 			returnWithInfo(buildFriendJSON($user_id,$friend_id));

@@ -101,7 +101,11 @@ function doLogin() {
     if(error == "")
     {
       window.sessionStorage.setItem("user_id",jsonObject.info.user_id);
+      window.sessionStorage.setItem("first_name",jsonObject.info.first_name);
+      window.sessionStorage.setItem("last_name",jsonObject.info.last_name);
+      window.sessionStorage.setItem("login",jsonObject.info.login);
       window.location.href = "home.html";
+      buildFriendsTable();
       return false;
     }
 
@@ -374,36 +378,71 @@ function buildTable() {
 // Functions for updateAccount.html
 
 function updateAccount() {
-  // need to fill in existing first and last name on new page
-  location.href = "updateAccount.html";
+  window.location.href = "updateAccount.html";
+}
+
+function populateAccountFields(){
+  var oldLogin = window.sessionStorage.getItem("login");
+  document.getElementById("login").placeholder = oldLogin;
+  var oldFirst = window.sessionStorage.getItem("first_name");
+  if(oldFirst){
+    document.getElementById("firstName").placeholder = oldFirst;
+  }
+  var oldLast = window.sessionStorage.getItem("last_name");
+  if(oldLast){
+    document.getElementById("lastName").placeholder = oldLast;
+  }
 }
 
 function submitAccountUpdate() {
   //WIP
-    var userid = window.sessionStorage.getItem("user_id");
+    var user_id = window.sessionStorage.getItem("user_id");
     var first_name = document.getElementById("firstName").value;
     var last_name = document.getElementById("lastName").value;
+    var login = document.getElementById("login").value;
     var password = document.getElementById("newPassword").value;
-    var hashedpass = md5(password);
+    var password2 = document.getElementById("newPassword2").value;
+    var oldPass = document.getElementById("loginPassword").value;
+    var hashOldPass = md5(oldPass);
 
-    var payload = '{"first_name" : "' + first_name + '", "last_name" : "' + last_name +
+    if(!verifyLogin(window.sessionStorage.getItem("login"),hashOldPass)){
+      //error
+      return false;
+    }
+    if(first_name == ""){
+      first_name = window.sessionStorage.getItem("first_name");
+    }
+    if(last_name == ""){
+      last_name = window.sessionStorage.getItem("last_name");
+    }
+    if(login == ""){
+      login = window.sessionStorage.getItem("login");
+    }
+
+    if ((password != password2)){
+      //error message
+      return false;
+    }
+    if(password == ""){
+      var hashedpass = hashOldPass;
+    }
+    else{
+      var hashedpass = md5(password);
+    }
+    var payload = '{"login" : "'+login+'","first_name" : "' + first_name + '", "last_name" : "' + last_name +
      '", "password" : "' + hashedpass + '", "user_id" : "' + user_id+  '"}';
-    var url = urlBegin + '/updateAccount' + urlEnding;
+    var url = urlBegin + '/updateUser' + urlEnding;
 
     var request = new XMLHttpRequest();
     request.open("POST", url, false);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-    try
-  	{
-  		request.send(contactPayload);
-
+    try{
+  		request.send(payload);
   		var jsonObject = JSON.parse(request.responseText);
-
       error = jsonObject.error;
 
-      if(error == "")
-      {
+      if(error == ""){
         return false;
       }
       else{
@@ -411,14 +450,13 @@ function submitAccountUpdate() {
         return false;
       }
     }
-
-    catch(err)
-  {
+    catch(err){
     // ?
     return false;
   }
 }
 
+/*
 function toggleFriendsList() {
   friendPanel = document.getElementById("friendPanel");
   if (friendPanel.style.display == "none" || friendPanel.style.display == ""){
@@ -431,15 +469,14 @@ function toggleFriendsList() {
     friendPanel.style.display = "none";
   }
 }
-
+*/
 function buildFriendsTable(){
+
   var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
   var url = urlBegin + '/retrieveFriends' + urlEnding;
-
   var request = new XMLHttpRequest();
   request.open("POST", url, false);
   request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
   try
   {
     request.send(payload);
@@ -461,6 +498,8 @@ function buildFriendsTable(){
     cell.appendChild(document.createTextNode("You don't have any friends yet :("));
     row.appendChild(cell);
     tableBody.appendChild(row);
+    table.appendChild(tableBody);
+    return false;
   }
   friendsArr.forEach(function(friendInfo){
     var row = document.createElement('tr');
@@ -607,5 +646,32 @@ function buildAttachList(){
   else{
     list.appendChild(listBody);
   }
+  return false;
+}
+
+function verifyLogin(user,hashedpass){
+  var loginPayload = '{"login" : "' + user + '", "password" : "' + hashedpass + '"}';
+  var url = urlBegin + '/login' + urlEnding;
+  var request = new XMLHttpRequest();
+
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try{
+		request.send(loginPayload);
+		var jsonObject = JSON.parse(request.responseText);
+    error = jsonObject.error;
+    if(error == ""){
+      return true;
+    }
+    else {
+      return false;
+    }
+	}
+  catch(err){
+    return false;
+  }
+}
+function openInbox(){
   return false;
 }

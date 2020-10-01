@@ -248,6 +248,29 @@ div {
   background: lime;
   box-shadow: 0 0 50px #39ff14;
 }
+
+#inboxButton{
+    border:0;
+    width: 110px;
+    background: none;
+    display: block;
+    margin-left: calc(100% - 110px);
+    text-align: center;
+    border: 2px solid black;
+    padding: 9px 30px;
+    outline: none;
+    color: lightgrey;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+#inboxButton:hover {
+  color: #111;
+  background: skyblue;
+  box-shadow: 0 0 50px #39ff14;
+}
+
 .buttonGroup{
   margin-bottom: 6px; /* Add some space below the input */
   position: relative;
@@ -451,7 +474,8 @@ div {
 
 
 .friendPanel {
- display: none;
+ display: block;
+ width: 12%;
  position: absolute;
  top: 36%;
  right: 0%;

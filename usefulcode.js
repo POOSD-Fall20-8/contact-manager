@@ -474,14 +474,12 @@ function buildFriendsTable(){
     });
     tableBody.appendChild(row);
   });
-  table.appendChild(tableBody);
-  /*
   if (table.childNodes.length > 2){
       table.replaceChild(tableBody,table.childNodes[table.childNodes.length-1]);
   }
   else{
     table.appendChild(tableBody);
-  }*/
+  }
 
   return false;
 }

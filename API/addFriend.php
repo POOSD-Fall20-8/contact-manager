@@ -35,6 +35,9 @@
 				}
 			}
 		}
+		else{
+			returnWithError("No Users Found");
+		}
 		$conn->close();
 	}
 

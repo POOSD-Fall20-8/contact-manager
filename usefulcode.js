@@ -612,6 +612,7 @@ function deleteFriend(friend_id){
     return false;
   }
 }
+
 function openMessageForm(friend_info){
     document.getElementById("messageForm").style.display = "block";
     document.getElementById("friendID").value = friend_info.user_id;
@@ -721,7 +722,36 @@ function buildAttachList(){
   return false;
 }
 
+function addFriend(){
+  if (event.key === 'Enter') {
+    var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '", "friend_name" : "' + document.getElementById("friendInput").value + '"}';
+    var url = 'http://firstcontacts.net/API/addFriend.php';
+    alert(url);
+    var request = new XMLHttpRequest();
 
+    request.open("POST", url, false);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try{
+      request.send(payload);
+      var jsonObject = JSON.parse(request.responseText);
+      error = jsonObject.error;
+
+      if(error == ""){
+        //success
+        return false;
+      }
+      else{
+        alert("No user found");
+        return false;
+      }
+    }
+    catch(err){
+      alert(err);
+      return false;
+    }
+  }
+}
 
 function openInbox(){
   window.location.href = "inbox.html";

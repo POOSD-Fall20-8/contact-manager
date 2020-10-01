@@ -15,13 +15,14 @@
     <div id="welcomealien">Welcome... alien!</div>
     <button id="logoutButton" onclick="return doLogout();">Logout</button>
     <button id="accountButton" onclick="return updateAccount();">Account</button>
-    <button id="inboxButton" onClick="return openInbox()">Inbox</button>
+    <button id="inboxButton" onclick="return openInbox()">Inbox</button>
     <br><br><br><br>
 
     <div id="friendPanel" class="friendPanel">
       <table id="friendTable">
         <th>Friends List</th>
       </table>
+      <input id="friendInput" type="text" onkeydown = "addFriend()" placeholder="Add a Friend!">
     </div>
 
 

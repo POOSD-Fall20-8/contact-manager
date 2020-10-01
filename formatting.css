@@ -491,7 +491,18 @@ div {
   font-size: 12px;
   color: skyblue;
 }
+/*
+.friendPanel input[type=text]:focus {
+  background-color: #ddd;
+}
 
+.friendPanel input[type=text]:hover {
+  background-color: #fcffcd;
+}
+*/
+.friendPanel input[type=text] {
+  width: 80%;
+}
 .message-form {
   width: 300px;
   height: 450px;

@@ -28,7 +28,7 @@
 		$sql = "SELECT user_id FROM friends WHERE friend_id ='".$user_id."'";
 		$result = $conn->query($sql);
 		while($row = $result->fetch_assoc()){
-			$friend_id = $row[friend_id];
+			$friend_id = $row[user_id];
 			$sql = "SELECT login,first_name,last_name FROM users WHERE user_id='".$friend_id."'";
 			$friendResult = $conn->query($sql);
 			if($friendResult->num_rows > 0){

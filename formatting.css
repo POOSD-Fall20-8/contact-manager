@@ -185,9 +185,10 @@ div {
 
 #accountButton{
     border:0;
+    width: 110px;
     background: none;
     display: block;
-    margin-left: 85%;
+    margin-left: calc(100% - 110px);
     text-align: center;
     border: 2px solid black;
     padding: 9px 30px;
@@ -206,9 +207,10 @@ div {
 
 #logoutButton{
   border:0;
+  width: 110px;
   background: none;
   display: block;
-  margin-left: 85%;
+  margin-left: calc(100% - 110px);
   text-align: center;
   border: 2px solid black;
   padding: 9px 30px;
@@ -225,6 +227,27 @@ div {
   box-shadow: 0 0 50px #39ff14;
 }
 
+#friendsButton{
+    border:0;
+    width: 110px;
+    background: none;
+    display: block;
+    margin-left: calc(100% - 110px);
+    text-align: center;
+    border: 2px solid black;
+    padding: 9px 30px;
+    outline: none;
+    color: lightgrey;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+#friendsButton:hover {
+  color: #111;
+  background: lime;
+  box-shadow: 0 0 50px #39ff14;
+}
 .buttonGroup{
   margin-bottom: 6px; /* Add some space below the input */
   position: relative;
@@ -251,7 +274,7 @@ div {
 
 #myTable {
   border-collapse: collapse; /* Collapse borders */
-  width: 90%; /* Full-width */
+  width: 80%; /* Full-width */
   border: 1px solid black; /* Add a black border */
   font-size: 14px; /* Increase font-size */
   background-color: white;
@@ -306,7 +329,7 @@ div {
 
     display: inline-block;
     text-decoration: none;
-    margin-left: 82%;
+    margin-left: 15px;
     margin-bottom: 5px;
     font-family: cursive;
 }
@@ -405,4 +428,42 @@ div {
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
+}
+/*
+.friendPanel {
+ display: none;
+ height: 50%;
+ position: absolute;
+ z-index: 1;
+ top: 36%;
+ right: 0%;
+ background-color: #111;
+}
+
+.friendPanel th {
+ padding: 8px 8px 8px 32px;
+ text-decoration: none;
+ font-size: 16px;
+ color: lime;
+ display: block;
+}*/
+
+
+
+.friendPanel {
+ display: none;
+ position: absolute;
+ top: 36%;
+ right: 0%;
+ background-color: #111;
+}
+
+.friendPanel th {
+ font-size: 16px;
+ color: lime;
+}
+
+.friendPanel tr {
+  font-size: 12px;
+  color: skyblue;
 }

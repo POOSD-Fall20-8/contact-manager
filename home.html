@@ -13,11 +13,16 @@
 
     <br><br>
     <div id="welcomealien">Welcome... alien!</div>
-      <button id="accountButton" onclick="return updateAccount();">Account</button>
     <button id="logoutButton" onclick="return doLogout();">Logout</button>
+    <button id="accountButton" onclick="return updateAccount();">Account</button>
+    <button id="friendsButton" onClick="toggleFriendsList()">Friends</button>
     <br><br><br><br>
 
-
+    <div id="friendPanel" class="friendPanel">
+      <table id="friendTable">
+        <th>Friends List</th>
+      </table>
+    </div>
 
 
     <div class="form-popup" id="addContactForm">
@@ -81,7 +86,7 @@
     <th style="width:15%;">Email</th>
     <th style="width:10%;">Phone Number</th>
     <th style="width:18%;">Address</th>
-    <th style="width:4%;">Tool</th>
+    <th style="width:10%;">Tool</th>
   </tr>
 </table>
 

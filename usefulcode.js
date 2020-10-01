@@ -149,7 +149,6 @@ function submitAddContactForm() {
 
     if(error == "")
     {
-      document.getElementById("contactPrompt").innerHTML = "success adding, contact: " + contactid;
       return false;
     }
 
@@ -157,7 +156,6 @@ function submitAddContactForm() {
 
   catch(err)
   {
-    document.getElementById("contactPrompt").innerHTML = err.message;
     return false;
   }
 
@@ -271,14 +269,7 @@ function deleteContact(record_id) {
 
 function buildTable() {
   search = document.getElementById("searchBar").value;
-  //last_name = document.getElementById("searchBar2").value;
-  //email_address = document.getElementById("searchBar3").value;
-  //phone_number = document.getElementById("searchBar4").value;
-  //home_address = document.getElementById("searchBar5").value;
-
-  //did not substitute 'search' for first_name yet
   var searchPayload = '{"search" : "' + search + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
-  //var searchPayload = '{"search" : "' + search + '", "last_name" : "' + last_name + '", "email_address" : "' + email_address + '", "phone_number" : "' + phone_number + '", "home_address" : "' + home_address + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
 
   var url = urlBegin + '/searchContact' + urlEnding;
 
@@ -306,7 +297,7 @@ function buildTable() {
 
   contactsArr.forEach(function(contactInfo){
     var row = document.createElement('tr');
-    Object.entries(contactInfo).forEach(function([key,value]){closeEditContactForm
+    Object.entries(contactInfo).forEach(function([key,value]){
       if(key!='record_id'){
         var cell = document.createElement('td');
         cell.appendChild(document.createTextNode(value));
@@ -427,4 +418,70 @@ function submitAccountUpdate() {
     // ?
     return false;
   }
+}
+
+function toggleFriendsList() {
+  friendPanel = document.getElementById("friendPanel");
+  if (friendPanel.style.display == "none" || friendPanel.style.display == ""){
+    buildFriendsTable();
+    friendPanel.style.display = "block";
+    friendPanel.style.width = "12%";
+  }
+  else{
+    friendPanel.style.width = 0;
+    friendPanel.style.display = "none";
+  }
+}
+
+function buildFriendsTable(){
+  var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  var url = urlBegin + '/retrieveFriends' + urlEnding;
+
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try
+  {
+    request.send(payload);
+    var jsonObject = JSON.parse(request.responseText);
+    var friendsArr = jsonObject.info.friends;
+  }
+
+  catch(err)
+{
+  return false;
+}
+
+  var table = document.getElementById('friendTable');
+
+  tableBody = document.createElement('tbody');
+  if (friendsArr.length == 0){
+    var row = document.createElement('tr');
+    var cell = document.createElement('td');
+    cell.appendChild(document.createTextNode("You don't have any friends yet :("));
+    row.appendChild(cell);
+    tableBody.appendChild(row);
+  }
+  friendsArr.forEach(function(friendInfo){
+    var row = document.createElement('tr');
+    Object.entries(friendInfo).forEach(function([key,value]){
+      if(key == "login"){
+        var cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(value));
+        row.appendChild(cell);
+      }
+    });
+    tableBody.appendChild(row);
+  });
+  table.appendChild(tableBody);
+  /*
+  if (table.childNodes.length > 2){
+      table.replaceChild(tableBody,table.childNodes[table.childNodes.length-1]);
+  }
+  else{
+    table.appendChild(tableBody);
+  }*/
+
+  return false;
 }

@@ -129,7 +129,7 @@ function submitAddContactForm() {
   var addy = document.getElementById("addy").value;
   var userid = window.sessionStorage.getItem("user_id");
 
-
+  closeAddContactForm();
   var contactPayload = '{"first_name" : "' + firsty + '", "last_name" : "' + lasty + '", "email" : "' + emmy + '", "phone" : "' + phony + '", "address" : "' + addy + '", "user_id" : "' + userid +  '"}'
   var url = urlBegin + '/addContact' + urlEnding;
   var request = new XMLHttpRequest();
@@ -293,73 +293,73 @@ function buildTable() {
   var table = document.getElementById('myTable');
 
   tableBody = document.createElement('tbody');
+  if(contactsArr){
+    contactsArr.forEach(function(contactInfo){
+      var row = document.createElement('tr');
+      Object.entries(contactInfo).forEach(function([key,value]){
+        if(key!='record_id'){
+          var cell = document.createElement('td');
+          cell.appendChild(document.createTextNode(value));
+          row.appendChild(cell);
+        }
+      });
 
-  contactsArr.forEach(function(contactInfo){
-    var row = document.createElement('tr');
-    Object.entries(contactInfo).forEach(function([key,value]){
-      if(key!='record_id'){
-        var cell = document.createElement('td');
-        cell.appendChild(document.createTextNode(value));
-        row.appendChild(cell);
+      var id = contactInfo.record_id;
+
+      var editButton = document.createElement('input');
+      editButton.setAttribute("value","");
+      editButton.setAttribute("type", "image");
+      editButton.setAttribute("src","Images/editIcon.png");
+      editButton.style.width = "28px";
+      editButton.style.height = "28px";
+      //editButton.style.borderRadius = "10px";
+      editButton.style.margin = "3px";
+      editButton.onmouseover = function() {
+      this.style.backgroundColor = "cyan";
       }
-    });
-
-    var id = contactInfo.record_id;
-
-    var editButton = document.createElement('input');
-    editButton.setAttribute("value","");
-    editButton.setAttribute("type", "image");
-    editButton.setAttribute("src","Images/editIcon.png");
-    editButton.style.width = "28px";
-    editButton.style.height = "28px";
-    //editButton.style.borderRadius = "10px";
-    editButton.style.margin = "3px";
-    editButton.onmouseover = function() {
-    this.style.backgroundColor = "cyan";
-    }
-    editButton.onmouseout = function() {
-    this.style.backgroundColor = "";
-    }
-
-
-    editButton.addEventListener("click", function()
-    {
-      editContact(contactInfo);
-    });
-
-    row.appendChild(editButton);
-
-
-    var deleteButton = document.createElement('input');
-    deleteButton.setAttribute("value","");
-    deleteButton.setAttribute("type", "image");
-    deleteButton.setAttribute("src","Images/deleteIcon.png")
-    deleteButton.style.width = "28px";
-    deleteButton.style.height = "28px";
-  //  deleteButton.style.borderRadius = "10px";
-    deleteButton.style.margin = "3px";
-    deleteButton.onmouseover = function() {
-      this.style.backgroundColor = "tomato";
-    }
-    deleteButton.onmouseout = function() {
+      editButton.onmouseout = function() {
       this.style.backgroundColor = "";
-    }
-
-    deleteButton.addEventListener("click", function()
-    {
-
-      if (confirm("Are you sure you want to delete contact?") == true)
-      {
-         deleteContact(id);
       }
-      buildTable();
+
+
+      editButton.addEventListener("click", function()
+      {
+        editContact(contactInfo);
+      });
+
+      row.appendChild(editButton);
+
+
+      var deleteButton = document.createElement('input');
+      deleteButton.setAttribute("value","");
+      deleteButton.setAttribute("type", "image");
+      deleteButton.setAttribute("src","Images/deleteIcon.png")
+      deleteButton.style.width = "28px";
+      deleteButton.style.height = "28px";
+    //  deleteButton.style.borderRadius = "10px";
+      deleteButton.style.margin = "3px";
+      deleteButton.onmouseover = function() {
+        this.style.backgroundColor = "tomato";
+      }
+      deleteButton.onmouseout = function() {
+        this.style.backgroundColor = "";
+      }
+
+      deleteButton.addEventListener("click", function()
+      {
+
+        if (confirm("Are you sure you want to delete contact?") == true)
+        {
+           deleteContact(id);
+        }
+        buildTable();
+      });
+
+      row.appendChild(deleteButton);
+
+      tableBody.appendChild(row);
     });
-
-    row.appendChild(deleteButton);
-
-
-    tableBody.appendChild(row);
-  });
+  }
 
   if (table.childNodes.length > 2){
       table.replaceChild(tableBody,table.childNodes[table.childNodes.length-1]);
@@ -477,18 +477,16 @@ function buildFriendsTable(){
     messageButton.setAttribute("src","Images/messageIcon.png");
     messageButton.style.width = "18px";
     messageButton.style.height = "18px";
-    //editButton.style.borderRadius = "10px";
-    //messageButton.style.margin = "3px";
     messageButton.onmouseover = function() {
-    this.style.backgroundColor = "lime";
+      this.style.backgroundColor = "lime";
     }
     messageButton.onmouseout = function() {
-    this.style.backgroundColor = "";
+      this.style.backgroundColor = "";
     }
 
     messageButton.addEventListener("click", function()
     {
-      alert("send a message to "+friendInfo.user_id);
+      openMessageForm(friendInfo);
     });
     row.appendChild(messageButton);
     tableBody.appendChild(row);
@@ -498,6 +496,68 @@ function buildFriendsTable(){
   }
   else{
     table.appendChild(tableBody);
+  }
+  return false;
+}
+
+function openMessageForm(friend_info){
+    document.getElementById("messageForm").style.display = "block";
+    document.getElementById("friendID").value = friend_info.user_id;
+    document.getElementById("friendInfo").innerHTML = ("Send message to "+ friend_info.login)
+  //  friend_info.first_name + " " + friend_info.last_name);
+}
+
+function submitMessageForm(){
+  closeMessageForm();
+  return false;
+}
+
+function closeMessageForm(){
+  document.getElementById("messageForm").style.display = "none";
+}
+
+function buildAttachList(){
+  search = document.getElementById("attachContactBar").value;
+  var searchPayload = '{"search" : "' + search + '", "user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+
+  var url = urlBegin + '/searchContact' + urlEnding;
+
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try
+  {
+    request.send(searchPayload);
+
+    var jsonObject = JSON.parse(request.responseText);
+
+    var contactsArr = jsonObject.info.matched;
+  }
+
+  catch(err)
+{
+  return false;
+}
+
+  var list = document.getElementById('attachContactDropdown');
+  list.style.display = "inline"
+  list.style.width = "40%";
+  var listBody = document.createElement("select");
+  listBody.style.width = "100%";
+  if(contactsArr){
+    contactsArr.forEach(function(contactInfo){
+      var option = document.createElement('option');
+      option.appendChild(document.createTextNode(contactInfo.first_name + " " + contactInfo.last_name));
+      listBody.appendChild(option);
+    });
+  }
+
+  if (list.childNodes.length > 0){
+      list.replaceChild(listBody,list.childNodes[list.childNodes.length-1]);
+  }
+  else{
+    list.appendChild(listBody);
   }
   return false;
 }

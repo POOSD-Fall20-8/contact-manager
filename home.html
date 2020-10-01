@@ -44,8 +44,8 @@
         <label for="addy"><b>Address</b></label>
         <input id="addy" type="text" placeholder="Enter Address">
 
-        <button type="submit" class="btn" onclick="submitAddContactForm(); closeAddContactForm(); return buildTable()">Add</button>
-        <button type="button" class="btn cancel" onclick="return closeAddContactForm()">Close</button>
+        <button type="submit" class="btn" onclick="submitAddContactForm(); return buildTable()">Add</button>
+        <button type="reset" class="btn cancel" onclick="return closeAddContactForm()">Close</button>
       </form>
     </div>
 
@@ -75,9 +75,23 @@
       </form>
     </div>
 
+    <div class="message-form" id="messageForm">
+      <form class="form-container">
+        <input type="hidden" id="friendID">
+        <h1 id="friendInfo"></h1>
+        <textarea id="messageBox" name="messageBox" rows="10" cols="30" placeholder="Enter a message"></textarea>
+        <div id="attachContactLabel">Attach a Contact</div>
+        <input type="text" id="attachContactBar" onkeyup = "buildAttachList()" placeholder="Search">
+        <div id="attachContactDropdown"></div>
+        <button type="submit" class="btn" onclick="return submitMessageForm();">Send</button>
+        <button type="reset" class="btn cancel" onclick="return closeMessageForm()">Cancel</button>
+      </form>
+    </div>
+
+
     <input type="text" id="searchBar" placeholder="Search for contact...">
-    <button type="button" class="btnSubmit" onclick="buildTable()"></button>
-    <button id="open-button" onclick="openAddContactForm()">Add Contact</button>
+    <button type="button" class="btnSubmit" onclick="buildTable();"></button>
+    <button id="open-button" onclick="openAddContactForm();">Add Contact</button>
 
 <table id="myTable">
   <tr class="header" id="headers">

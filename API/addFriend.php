@@ -15,7 +15,8 @@
 		$sql = "SELECT user_id FROM users WHERE login='".$friend_name."'";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0){
-			$friend_id = ($result->fetch_assoc())[user_id];
+			$row = $result->fetch_assoc();
+			$friend_id = $row[user_id];
 			$sql = "SELECT user_id,friend_id FROM friends WHERE (user_id='".$user_id."'".
 				"AND friend_id='".$friend_id."') OR (friend_id='".$user_id."'".
 					"AND user_id='".$friend_id."')";

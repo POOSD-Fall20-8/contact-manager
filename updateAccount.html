@@ -11,7 +11,6 @@
   </head>
 
   <body onload="populateAccountFields()">
-    <button id="homeButton" onclick = "return goToHome();">Return Home</button>
     <form class="box" id="updateBox" action="updateAccount.html" method="post">
       <p id="updateResult"></p>
       <h1>Update Account</h1>
@@ -21,6 +20,7 @@
       <input type="password" id="newPassword" placeholder="Set a new password">
       <input type="password" id="newPassword2" placeholder="Confirm new password">
       <input type="password" id="loginPassword" placeholder="Enter old password to confirm changes">
+      <button id="homeButton" onclick = "return goToHome();">Cancel</button>
       <button id="updateButton" onclick="return submitAccountUpdate();">Submit</button>
     </form>
   </body>

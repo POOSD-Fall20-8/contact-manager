@@ -2,19 +2,18 @@
 	include 'utils.php';
 
 	$inData = getRequestInfo();
-
-	$first_name = $inData->first_name;
-	$last_name = $inData->last_name;
-	$email = $inData->email;
-	$phone = $inData->phone;
-	$address = $inData->address;
-	$user_id = $inData->user_id;
-
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	else{
+		$first_name = $conn->real_escape_string($inData->first_name);
+		$last_name = $conn->real_escape_string($inData->last_name);
+		$email = $conn->real_escape_string($inData->email);
+		$phone = $conn->real_escape_string($inData->phone);
+		$address = $conn->real_escape_string($inData->address);
+		$user_id = $conn->real_escape_string($inData->user_id);
+
 		if (($first_name . $last_name . $email . $phone . $address) == ""){
 			//no blank entries
 			returnWithError("Contact Must Not Be Empty");

@@ -15,6 +15,7 @@
 		returnWithError( $conn->connect_error );
 	}
 	else{
+		$message_text = $conn->real_escape_string($message_text);
 		$sql = "INSERT INTO messages (sender_id,recipient_id,";
 		if($contact_id != ""){
 			$sql .= "contact_id,";

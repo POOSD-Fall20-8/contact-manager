@@ -10,10 +10,15 @@
 		$search = $conn->real_escape_string($inData->search);
 		$user_id = $conn->real_escape_string($inData->user_id);
 		$record_id = $conn->real_escape_string($inData->record_id);
-		$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM contacts WHERE ".
-		"(CONCAT_WS(' ',first_name,last_name) LIKE '%". $search."%' OR email LIKE '%". $search."%' OR " .
-		"phone LIKE '%". $search."%' OR address LIKE '%". $search."%' OR record_id='".$record_id."') AND user_id='".$user_id."'";
-
+		if($record_id != ""){
+			$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM contacts WHERE".
+			" record_id='".$record_id."' AND user_id='".$user_id."'";
+		}
+		else{
+			$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM contacts WHERE ".
+			"(CONCAT_WS(' ',first_name,last_name) LIKE '%". $search."%' OR email LIKE '%". $search."%' OR " .
+			"phone LIKE '%". $search."%' OR address LIKE '%". $search."%') AND user_id='".$user_id."'";
+		}
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0){
 			$matched = '[';

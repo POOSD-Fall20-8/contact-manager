@@ -322,25 +322,6 @@ div {
   box-shadow: 0 0 50px #39ff14;
 }
 
-/*
-#homeButton{
-    border:0;
-    width: 110px;
-    background: none;
-    display: inline;
-    margin-left: calc(100% - 110px);
-    text-align: center;
-    border: 2px solid black;
-    padding: 9px 30px;
-    outline: none;
-    color: lightgrey;
-    border-radius: 24px;
-    transition: 0.25s;
-    cursor: pointer;
-}
-
-
-*/
 #updateBox button {
   border:0;
   width: 120px;

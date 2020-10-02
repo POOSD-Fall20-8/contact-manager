@@ -711,6 +711,7 @@ function buildAttachList(){
 }
 
 function addFriend(){
+
   if (event.key === 'Enter') {
     var friendName = document.getElementById("friendInput").value;
     document.getElementById("friendInput").value = "";
@@ -916,6 +917,7 @@ function openDisplayMessageForm(messageInfo,senderName){
   var importButton = document.getElementById("importButton");
   if(contactInfo){
     document.getElementById("importContactInfo").innerHTML = contactInfo.first_name + " " + contactInfo.last_name;
+    document.getElementById("importContactLabel").innerHTML = "Import a Contact";
     importButton.setAttribute("src","Images/importIcon.png");
    importButton.setAttribute("value","");
     importButton.setAttribute("type", "image");
@@ -934,6 +936,7 @@ function openDisplayMessageForm(messageInfo,senderName){
   }
   else{
     document.getElementById("importContactInfo").innerHTML = "";
+    document.getElementById("importContactLabel").innerHTML = "";
     importButton.style.display = "none";
   }
 }

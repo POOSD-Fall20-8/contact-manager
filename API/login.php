@@ -3,14 +3,14 @@
 
 	$inData = getRequestInfo();
 
-	$login = $inData->login;
-	$password = $inData->password;
-
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	else{
+		$login = $conn->real_escape_string($inData->login);
+		$password = $conn->real_escape_string($inData->password);
+		
 		$sql = "SELECT user_id,first_name,last_name,password FROM users WHERE login='" . $login . "'";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0){

@@ -2,15 +2,13 @@
 	include 'utils.php';
 
 	$inData = getRequestInfo();
-
-	$search = $inData->search;
-	$user_id = $inData->user_id;
-
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	else{
+		$search = $conn->real_escape_string($inData->search);
+		$user_id = $conn->real_escape_string($inData->user_id);
 		$sql = "SELECT first_name,last_name,email,phone,address,record_id FROM contacts WHERE ".
 		"(CONCAT_WS(' ',first_name,last_name) LIKE '%". $search."%' OR email LIKE '%". $search."%' OR " .
 		"phone LIKE '%". $search."%' OR address LIKE '%". $search."%') AND user_id='".$user_id."'";

@@ -2,16 +2,14 @@
 	include 'utils.php';
 
 	$inData = getRequestInfo();
-
-  //inData->whatever
-  $user_id = $inData->user_id;
-	$friend_name = $inData->friend_name;
-
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	else{
+	  $user_id = $conn->real_escape_string($inData->user_id);
+		$friend_name = $conn->real_escape_string($inData->friend_name);
+
 		$sql = "SELECT user_id FROM users WHERE login='".$friend_name."'";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0){

@@ -3,20 +3,18 @@
 	include 'utils.php';
 
 	$inData = getRequestInfo();
-
-	$login = $inData->login;
-	$password = $inData->password;
-	$first_name = $inData->first_name;
-	$last_name = $inData->last_name;
-
-
-	if (($login == "") || ($password == "")){
-		returnWithError("Login and password required");
+	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
+	if ($conn->connect_error){
+		returnWithError( $conn->connect_error );
 	}
 	else{
-		$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
-		if ($conn->connect_error){
-			returnWithError( $conn->connect_error );
+		$login = $conn->real_escape_string($inData->login);
+		$password = $conn->real_escape_string($inData->password);
+		$first_name = $conn->real_escape_string($inData->first_name);
+		$last_name = $conn->real_escape_string($inData->last_name);
+
+		if (($login == "") || ($password == "")){
+			returnWithError("Login and password required");
 		}
 		else{
 			$sql = "SELECT user_id FROM users where login='" . $login . "'";

@@ -2,14 +2,12 @@
 	include 'utils.php';
 
 	$inData = getRequestInfo();
-
-	$user_id = $inData->user_id;
-
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	else{
+		$user_id = 	$conn->real_escape_string($inData->user_id);
 		//either user in a friend pair can be the user or the friend id,
     $sql = "SELECT friend_id FROM friends WHERE user_id='".$user_id."'";
 		$result = $conn->query($sql);

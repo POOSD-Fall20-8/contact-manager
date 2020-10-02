@@ -2,15 +2,13 @@
 	include 'utils.php';
 
 	$inData = getRequestInfo();
-
-	$recipient_id = $inData->recipient_id;
-	$status = $inData->status;
-
 	$conn = new mysqli("localhost", "dbadmin", "dbpass", "ContactManager");
 	if ($conn->connect_error){
 		returnWithError( $conn->connect_error );
 	}
 	else{
+		$recipient_id = $conn->real_escape_string($inData->recipient_id);
+		$status = $conn->real_escape_string($inData->status);
     $sql = "SELECT message_id,sender_id,contact_id,message_text,status FROM messages WHERE recipient_id='".$recipient_id."'";
 		if($status != ""){
 			$sql .= " AND status='".$status."'";

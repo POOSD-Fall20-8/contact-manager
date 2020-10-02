@@ -104,7 +104,6 @@ function doLogin() {
       window.sessionStorage.setItem("last_name",jsonObject.info.last_name);
       window.sessionStorage.setItem("login",jsonObject.info.login);
       window.location.href = "home.html";
-      buildFriendsTable();
       return false;
     }
 
@@ -479,21 +478,6 @@ function verifyLogin(user,hashedpass){
   }
 }
 
-/*
-function toggleFriendsList() {
-  friendPanel = document.getElementById("friendPanel");
-  if (friendPanel.style.display == "none" || friendPanel.style.display == ""){
-    buildFriendsTable();
-    friendPanel.style.display = "block";
-    friendPanel.style.width = "12%";
-  }
-  else{
-    friendPanel.style.width = 0;
-    friendPanel.style.display = "none";
-  }
-}
-*/
-
 function buildFriendsTable(){
 
   var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
@@ -612,7 +596,7 @@ function deleteFriend(friend_id){
 }
 
 function openMessageForm(friend_info){
-    document.getElementById("messageForm").style.display = "block";
+    document.getElementById("sendMessageForm").style.display = "block";
     document.getElementById("friendID").value = friend_info.user_id;
     document.getElementById("friendInfo").innerHTML = ("Send message to "+ friend_info.login)
   //  friend_info.first_name + " " + friend_info.last_name);
@@ -669,7 +653,13 @@ function submitMessageForm(){
 }
 
 function closeMessageForm(){
-  document.getElementById("messageForm").style.display = "none";
+  document.getElementById("sendMessageForm").style.display = "none";
+  var list = document.getElementById('attachContactDropdown');
+    if(list.hasChildNodes()){
+      list.removeChild(list.lastChild);
+    }
+    document.getElementById("attachContactBar").value = "";
+    document.getElementById("messageBox").value = "";
 }
 
 function buildAttachList(){
@@ -722,7 +712,9 @@ function buildAttachList(){
 
 function addFriend(){
   if (event.key === 'Enter') {
-    var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '", "friend_name" : "' + document.getElementById("friendInput").value + '"}';
+    var friendName = document.getElementById("friendInput").value;
+    document.getElementById("friendInput").value = "";
+    var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '", "friend_name" : "' + friendName + '"}';
     var url = urlBegin + '/addFriend' + urlEnding;
     var request = new XMLHttpRequest();
 
@@ -754,11 +746,6 @@ function goToHome(){
   return false;
 }
 
-function openInbox(){
-  window.location.href = "inbox.html";
-  return false;
-}
-
 function buildMessageTable(){
   var messagePayload = '{"recipient_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
   var url = urlBegin + '/retrieveMessages' + urlEnding;
@@ -780,76 +767,31 @@ function buildMessageTable(){
 }
 
   var table = document.getElementById('inboxTable');
+  table.style.display = "block";
 
   tableBody = document.createElement('tbody');
   if(messagesArr){
     messagesArr.forEach(function(messageInfo){
       var row = document.createElement('tr');
+      var senderName = "";
       Object.entries(messageInfo).forEach(function([key,value]){
         if(key=='sender_id'){
           var cell = document.createElement('td');
-          cell.appendChild(document.createTextNode(value));
+          senderName = getFriendName(value);
+          cell.appendChild(document.createTextNode(senderName));
           row.appendChild(cell);
         }
         if(key=='message_text' ){
           var cell = document.createElement('td');
-          cell.appendChild(document.createTextNode(value));
+          var preview = value.substr(0,15);
+          cell.appendChild(document.createTextNode(preview));
           row.appendChild(cell);
         }
       });
-
-/*
-      var editButton = document.createElement('input');
-      editButton.setAttribute("value","");
-      editButton.setAttribute("type", "image");
-      editButton.setAttribute("src","Images/editIcon.png");
-      editButton.style.width = "28px";
-      editButton.style.height = "28px";
-      //editButton.style.borderRadius = "10px";
-      editButton.style.margin = "3px";
-      editButton.onmouseover = function() {
-      this.style.backgroundColor = "cyan";
-      }
-      editButton.onmouseout = function() {
-      this.style.backgroundColor = "";
-      }
-
-
-      editButton.addEventListener("click", function()
+      row.addEventListener("click", function()
       {
-        editContact(contactInfo);
+        openDisplayMessageForm(messageInfo,senderName);
       });
-
-      row.appendChild(editButton);
-
-
-      var deleteButton = document.createElement('input');
-      deleteButton.setAttribute("value","");
-      deleteButton.setAttribute("type", "image");
-      deleteButton.setAttribute("src","Images/deleteIcon.png")
-      deleteButton.style.width = "28px";
-      deleteButton.style.height = "28px";
-    //  deleteButton.style.borderRadius = "10px";
-      deleteButton.style.margin = "3px";
-      deleteButton.onmouseover = function() {
-        this.style.backgroundColor = "tomato";
-      }
-      deleteButton.onmouseout = function() {
-        this.style.backgroundColor = "";
-      }
-
-      deleteButton.addEventListener("click", function()
-      {
-
-        if (confirm("Are you sure you want to delete contact?") == true)
-        {
-           deleteContact(id);
-        }
-        buildTable();
-      });
-
-      row.appendChild(deleteButton);
-*/
       tableBody.appendChild(row);
     });
   }
@@ -862,4 +804,176 @@ function buildMessageTable(){
   }
 
   return false;
+}
+
+function toggleInboxSidebar(){
+    var sidebar = document.getElementById("inboxSidebar");
+    var sidebarButton = document.getElementById("inboxToggle");
+    var sidebarTable = document.getElementById("inboxTable");
+    if(sidebar.style.width == "20px"){
+      sidebar.style.width = "22%";
+      sidebar.style.height = "33%";
+      sidebar.style.overflowY = "scroll";
+      sidebar.style.backgroundColor = "skyblue";
+      sidebarButton.style.backgroundColor = "transparent";
+      sidebarButton.setAttribute("src","Images/closeIcon.png");
+      buildMessageTable();
+      sidebarTable.style.display = "block";
+    }
+    else{
+      sidebar.style.width = "20px";
+      sidebar.style.height = "20px";
+      sidebar.style.overflowY = "hidden";
+      sidebar.style.backgroundColor = "transparent";
+      sidebarButton.setAttribute("src","Images/messageIcon.png");
+      if(unreadMessages()){
+        sidebarButton.style.backgroundColor = "#c04e01";
+      }
+      sidebarTable.style.display = "none";
+    }
+}
+
+function initializeInbox(){
+  var sidebar = document.getElementById("inboxSidebar");
+  var sidebarButton = document.getElementById("inboxToggle");
+  sidebar.style.width = "20px";
+  sidebar.style.height = "20px";
+  sidebar.style.overflowY = "hidden";
+  sidebar.style.backgroundColor = "transparent";
+  sidebarButton.setAttribute("value","");
+  sidebarButton.setAttribute("type", "image");
+  sidebarButton.setAttribute("src", "Images/messageIcon.png");
+  if(unreadMessages()){
+    sidebarButton.style.backgroundColor = "#c04e01";
+  }
+}
+
+function unreadMessages(){
+  var messagePayload = '{"recipient_id" : "' + window.sessionStorage.getItem("user_id") + '","status": "0"}';
+  var url = urlBegin + '/retrieveMessages' + urlEnding;
+
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try{
+    request.send(messagePayload);
+
+    var jsonObject = JSON.parse(request.responseText);
+
+    var messagesArr = jsonObject.info.messages;
+  }
+
+  catch(err){
+    return false;
+  }
+  if(messagesArr){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+function getFriendName(idToFind){
+  var payload = '{"user_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  var url = urlBegin + '/retrieveFriends' + urlEnding;
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try{
+    request.send(payload);
+    var jsonObject = JSON.parse(request.responseText);
+    var friendsArr = jsonObject.info.friends;
+  }
+
+  catch(err){
+  return "";
+  }
+
+  if(friendsArr){
+    var retVal = "";
+    friendsArr.forEach(function(friendInfo){
+      if(friendInfo.user_id == idToFind){
+        retVal = friendInfo.login;
+        return;
+      }
+    });
+    return retVal;
+  }
+  else{
+    return "";
+  }
+}
+
+function openDisplayMessageForm(messageInfo,senderName){
+  document.getElementById("showMessageForm").style.display = "block";
+  document.getElementById("senderInfo").innerHTML = ("Message from "+ senderName);
+  document.getElementById("showMessageArea").innerHTML = messageInfo.message_text;
+  var contactInfo = getContactByID(messageInfo.contact_id,messageInfo.sender_id);
+  var contactString = "";
+  var importButton = document.getElementById("importButton");
+  if(contactInfo){
+    document.getElementById("importContactInfo").innerHTML = contactInfo.first_name + " " + contactInfo.last_name;
+    importButton.setAttribute("src","Images/importIcon.png");
+   importButton.setAttribute("value","");
+    importButton.setAttribute("type", "image");
+    importButton.style.width = "36px";
+    importButton.style.height = "36px";
+    importButton.style.display = "block";
+      importButton.addEventListener("click",function(){
+      closeMessageDisplay();
+      document.getElementById("fname").value = contactInfo.first_name;
+      document.getElementById("lname").value = contactInfo.last_name;
+      document.getElementById("email").value = contactInfo.email;
+      document.getElementById("pnum").value = contactInfo.phone;
+      document.getElementById("addy").value = contactInfo.address;
+      document.getElementById("addContactForm").style.display = "block";
+      });
+  }
+  else{
+    document.getElementById("importContactInfo").innerHTML = "";
+    importButton.style.display = "none";
+  }
+}
+
+function closeMessageDisplay(){
+    document.getElementById("showMessageForm").style.display = "none";
+    document.getElementById("senderInfo").innerHTML = "";
+    document.getElementById("showMessageArea").innerHTML = "";
+    document.getElementById("importContactInfo").innerHTML = "";
+}
+
+function getContactByID(contact_id,user_id){
+  if(!contact_id){
+    return null;
+  }
+  var searchPayload = '{"record_id" : "' + contact_id + '", "user_id" : "' + user_id + '","search":""}';
+
+  var url = urlBegin + '/searchContact' + urlEnding;
+
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try{
+    request.send(searchPayload);
+
+    var jsonObject = JSON.parse(request.responseText);
+
+    var contactsArr = jsonObject.info.matched;
+  }
+
+  catch(err){
+    return null;
+  }
+
+  if(contactsArr){
+    return contactsArr[0];
+  }
+  else{
+    return null;
+  }
+
 }

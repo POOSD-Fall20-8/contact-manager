@@ -9,13 +9,12 @@
     <script type="text/javascript" src="usefulcode.js"></script>
   </head>
 
-  <body onload="buildFriendsTable()">
+  <body onload="buildFriendsTable(); initializeInbox();">
 
     <br><br>
     <div id="welcomealien">Welcome... alien!</div>
     <button id="logoutButton" onclick="return doLogout();">Logout</button>
     <button id="accountButton" onclick="return updateAccount();">Account</button>
-    <button id="inboxButton" onclick="return openInbox()">Inbox</button>
     <br><br><br><br>
 
     <div id="friendPanel" class="friendPanel">
@@ -76,7 +75,7 @@
       </form>
     </div>
 
-    <div class="message-form" id="messageForm">
+    <div class="message-form" id="sendMessageForm">
       <form class="form-container">
         <input type="hidden" id="friendID">
         <h1 id="friendInfo"></h1>
@@ -89,6 +88,27 @@
       </form>
     </div>
 
+    <div class="message-form" id="showMessageForm">
+        <h1 id="senderInfo"></h1>
+        <!--
+        <textarea id="showMessageBox" name="messageBox" rows="4" cols="30" placeholder=""></textarea>
+      -->
+        <div id="showMessageArea"></div>
+        <div id="importContactLabel">Import a Contact</div>
+        <div id="importContactInfo"></div>
+        <input type="button" id="importButton"></input>
+        <button id ="closeMessageButon" type="reset" class="btn cancel" onclick="return closeMessageDisplay()">Close</button>
+    </div>
+
+    <div id="inboxSidebar" class="sidebar">
+      <input id="inboxToggle" class="toggleButton" onclick="toggleInboxSidebar()"></input>
+      <table id="inboxTable">
+        <tr class="header" id="headers">
+          <th style="width:8%;">From</th>
+          <th style="width:8%;">Preview</th>
+        </tr>
+      </table>
+    </div>
 
     <input type="text" id="searchBar" placeholder="Search for contact...">
     <button type="button" class="btnSubmit" onclick="buildTable();"></button>

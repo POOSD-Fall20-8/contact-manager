@@ -352,7 +352,8 @@ div {
   max-height: 45%;
   background-color: transparent;
   -ms-overflow-style: none;
- scrollbar-width: none;
+  scrollbar-width: none;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar {

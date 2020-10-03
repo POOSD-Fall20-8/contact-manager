@@ -624,7 +624,6 @@ function submitMessageForm(){
   closeMessageForm();
   var url = urlBegin + '/sendMessage' + urlEnding;
   var request = new XMLHttpRequest();
-
   request.open("POST", url, false);
   request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
@@ -633,7 +632,6 @@ function submitMessageForm(){
     request.send(messagePayload);
     var jsonObject = JSON.parse(request.responseText);
     error = jsonObject.error;
-
     if(error == "")
     {
       //success
@@ -842,7 +840,7 @@ function toggleInboxSidebar(){
     if(sidebar.style.width == "20px"){
       sidebar.style.width = "22%";
       sidebar.style.height = "33%";
-    //  sidebar.style.overflowY = "scroll";
+     // sidebar.style.overflowY = "scroll";
       sidebar.style.backgroundColor = "#343837";
       sidebarButton.style.backgroundColor = "transparent";
       sidebarButton.setAttribute("src","Images/closeIcon.png");
@@ -852,7 +850,7 @@ function toggleInboxSidebar(){
     else{
       sidebar.style.width = "20px";
       sidebar.style.height = "20px";
-      sidebar.style.overflowY = "hidden";
+    //  sidebar.style.overflowY = "hidden";
       sidebar.style.backgroundColor = "transparent";
       sidebarButton.setAttribute("src","Images/messageIcon.png");
       if(unreadMessages()){
@@ -867,7 +865,7 @@ function initializeInbox(){
   var sidebarButton = document.getElementById("inboxToggle");
   sidebar.style.width = "20px";
   sidebar.style.height = "20px";
-  sidebar.style.overflowY = "hidden";
+//  sidebar.style.overflowY = "hidden";
   sidebar.style.backgroundColor = "transparent";
   sidebarButton.setAttribute("value","");
   sidebarButton.setAttribute("type", "image");

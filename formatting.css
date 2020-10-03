@@ -350,7 +350,16 @@ div {
   left:0;
   overflow-y: scroll;
   max-height: 45%;
+  background-color: transparent;
+  -ms-overflow-style: none;
+ scrollbar-width: none;
 }
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
 
 #myTable {
   border-collapse: collapse; /* Collapse borders */
@@ -602,11 +611,16 @@ div {
   display: none;
   border-collapse: collapse; /* Collapse borders */
   width: 80%; /* Full-width */
+  max-height: 100%;
   font-size: 14px; /* Increase font-size */
   margin: 0;
   position: relative;
   left: 15px;
   right: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
 }
 #inboxTable td {
   text-align: left;
@@ -620,7 +634,7 @@ div {
   top: 0;
   left: 0;
   overflow-x: hidden;
-  overflow-y:hidden;
+  overflow-y: hidden;
   transition: 0.5s;
 }
 

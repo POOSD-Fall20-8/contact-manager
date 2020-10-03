@@ -344,9 +344,17 @@ div {
   border-radius: 24px;
 }
 
+#tableDiv{
+  width: 80%;
+  position: absolute;
+  left:0;
+  overflow-y: scroll;
+  max-height: 45%;
+}
+
 #myTable {
   border-collapse: collapse; /* Collapse borders */
-  width: 80%; /* Full-width */
+  width: 100%; /* Full-width */
   border: 1px solid black; /* Add a black border */
   font-size: 14px; /* Increase font-size */
   background-color: white;

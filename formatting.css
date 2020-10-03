@@ -602,9 +602,18 @@ div {
   display: inline;
 }
 
-#attachContactDropdown {
-  display:none;
+#attachContactInputs {
+  display: inline-block;
   float: left;
+  height: 30px;
+}
+
+#attachContactBar{
+  display: inline-block;
+  position: relative;
+  width: 40%;
+  font-size: 12px;
+  top: 0px;
 }
 
 #inboxTable {
@@ -620,7 +629,7 @@ div {
   overflow-x: hidden;
   overflow-y: scroll;
   -ms-overflow-style: none;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 #inboxTable td {
   text-align: left;
@@ -657,7 +666,7 @@ div {
   height:30px;
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 10px;
   margin-left: 50px;
 }
 

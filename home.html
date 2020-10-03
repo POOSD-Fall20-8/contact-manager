@@ -81,8 +81,9 @@
         <h1 id="friendInfo"></h1>
         <textarea id="messageBox" name="messageBox" rows="10" cols="30" placeholder="Enter a message"></textarea>
         <div id="attachContactLabel">Attach a Contact</div>
-        <input type="text" id="attachContactBar" onkeyup = "buildAttachList()" placeholder="Search">
-        <div id="attachContactDropdown"></div>
+        <div id="attachContactInputs">
+           <input type="text" id="attachContactBar" onkeyup = "buildAttachList()" placeholder="Search">
+         </div>
         <button type="submit" class="btn" onclick="return submitMessageForm();">Send</button>
         <button type="reset" class="btn cancel" onclick="return closeMessageForm()">Cancel</button>
       </form>

@@ -534,6 +534,7 @@ function buildFriendsTable(){
     messageButton.addEventListener("click", function()
     {
       openMessageForm(friendInfo);
+      buildAttachList();
     });
     row.appendChild(messageButton);
 
@@ -603,21 +604,14 @@ function openMessageForm(friend_info){
 }
 
 function submitMessageForm(){
-  /*
-  $sender_id = $inData->sender_id;
-  $recipient_id = $inData->recipient_id;
-  $contact_id = $inData->contact_id;
-  $message_text = $inData->message_text;
-  $status = UNREAD;
-  */
   var dropdown = document.getElementById("attachListBody");
-  if (dropdown){
-      var attachID = dropdown.options[dropdown.selectedIndex].value;
+  if (dropdown && (dropdown.options[dropdown.selectedIndex].value != 'noneOption' )){
+    var attachID = dropdown.options[dropdown.selectedIndex].value;
   }
 
   var messagePayload = '{"sender_id" : "' + window.sessionStorage.getItem("user_id") + '", "recipient_id" : "'
   + document.getElementById("friendID").value + '",';
-  if(dropdown){
+  if(dropdown && (dropdown.options[dropdown.selectedIndex].value != 'noneOption' )){
     messagePayload += '"contact_id" : "'+attachID+ '",';
   }
   messagePayload+='"message_text" : "'+document.getElementById("messageBox").value+'"}';
@@ -652,10 +646,7 @@ function submitMessageForm(){
 
 function closeMessageForm(){
   document.getElementById("sendMessageForm").style.display = "none";
-  var list = document.getElementById('attachContactDropdown');
-    if(list.hasChildNodes()){
-      list.removeChild(list.lastChild);
-    }
+  var list = document.getElementById('attachContactInputs');
     document.getElementById("attachContactBar").value = "";
     document.getElementById("messageBox").value = "";
 }
@@ -684,12 +675,22 @@ function buildAttachList(){
   return false;
 }
 
-  var list = document.getElementById('attachContactDropdown');
-  list.style.display = "inline"
-  list.style.width = "40%";
+  var list = document.getElementById('attachContactInputs');
+  list.style.display = "block";
+  list.style.width = "90%";
   var listBody = document.createElement("select");
   listBody.id = "attachListBody";
-  listBody.style.width = "100%";
+  listBody.style.position = "relative";
+  listBody.style.display = "inline-block";
+  listBody.style.width = "40%";
+  listBody.style.height = "30px";
+  listBody.style.top = "3px";
+
+  var noneOption = document.createElement('option');
+  noneOption.appendChild(document.createTextNode("None"));
+  noneOption.value = "noneOption";
+  listBody.appendChild(noneOption);
+
   if(contactsArr){
     contactsArr.forEach(function(contactInfo){
       var option = document.createElement('option');
@@ -699,7 +700,7 @@ function buildAttachList(){
     });
   }
 
-  if (list.childNodes.length > 0){
+  if (list.childNodes.length > 2){
       list.replaceChild(listBody,list.childNodes[list.childNodes.length-1]);
   }
   else{
@@ -819,6 +820,14 @@ function buildMessageTable(){
         openDisplayMessageForm(messageInfo,senderName);
         buildMessageTable();
       });
+
+      row.onmouseover = function() {
+      this.style.backgroundColor = "gray";
+      }
+      row.onmouseout = function() {
+      this.style.backgroundColor = "";
+      }
+
       tableBody.appendChild(row);
     });
   }
@@ -838,11 +847,12 @@ function toggleInboxSidebar(){
     var sidebarButton = document.getElementById("inboxToggle");
     var sidebarTable = document.getElementById("inboxTable");
     if(sidebar.style.width == "20px"){
-      sidebar.style.width = "22%";
-      sidebar.style.height = "33%";
+      sidebar.style.width = "230px";
+      sidebar.style.height = "180px";
      // sidebar.style.overflowY = "scroll";
       sidebar.style.backgroundColor = "#343837";
       sidebarButton.style.backgroundColor = "transparent";
+      sidebarButton.style.right = "5px";
       sidebarButton.setAttribute("src","Images/closeIcon.png");
       buildMessageTable();
       sidebarTable.style.display = "block";
@@ -852,6 +862,7 @@ function toggleInboxSidebar(){
       sidebar.style.height = "20px";
     //  sidebar.style.overflowY = "hidden";
       sidebar.style.backgroundColor = "transparent";
+      sidebarButton.style.right = "10px";
       sidebarButton.setAttribute("src","Images/messageIcon.png");
       if(unreadMessages()){
         sidebarButton.style.backgroundColor = "#c04e01";

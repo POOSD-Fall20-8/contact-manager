@@ -937,21 +937,42 @@ function getFriendName(idToFind){
 }
 
 function openDisplayMessageForm(messageInfo,senderName){
+
   markAsRead(messageInfo.message_id);
   document.getElementById("showMessageForm").style.display = "block";
   document.getElementById("senderInfo").innerHTML = ("Message from "+ senderName);
   document.getElementById("showMessageArea").innerHTML = messageInfo.message_text;
-  var deleteButton = document.getElementById("deleteMessageButton");
+  var buttonsArea = document.getElementById("messageButtons");
+  while(buttonsArea.hasChildNodes()){
+    buttonsArea.removeChild(buttonsArea.childNodes[0]);
+  }
+
+  var deleteButton = document.createElement("input");
   deleteButton.setAttribute("value","");
   deleteButton.setAttribute("type", "image");
   deleteButton.setAttribute("src","Images/deleteIcon.png")
-  deleteButton.style.width = "18px";
-  deleteButton.style.height = "18px";
+  deleteButton.style.width = "24px";
+  deleteButton.style.height = "24px";
   deleteButton.addEventListener("click",function(){
     deleteMessage(messageInfo.message_id);
     closeMessageDisplay();
     buildMessageTable();
   });
+
+  buttonsArea.appendChild(deleteButton);
+
+  var closeButton = document.createElement("input");
+  closeButton.setAttribute("value","");
+  closeButton.setAttribute("type", "image");
+  closeButton.setAttribute("src","Images/closeIcon.png")
+  closeButton.style.width = "24px";
+  closeButton.style.height = "24px";
+  closeButton.addEventListener("click",function(){
+    closeMessageDisplay();
+    buildMessageTable();
+  });
+
+  buttonsArea.appendChild(closeButton);
 
   var contactInfo = getContactByID(messageInfo.contact_id,messageInfo.sender_id);
   var contactString = "";

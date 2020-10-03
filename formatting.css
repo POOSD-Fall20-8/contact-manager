@@ -575,6 +575,10 @@ div {
   width: 80%;
 }
 
+#{
+
+}
+
 #importContactLabel{
   width:80%;
   font-size: 16px;
@@ -641,7 +645,9 @@ div {
   padding: 20px;
 }
 
+/*
 #closeMessageButton{
+  display: block;
   background-color: #4CAF50;
   color: white;
   padding: 16px 20px;
@@ -653,3 +659,4 @@ div {
   opacity: 0.8;
     background-color: red;
 }
+*/

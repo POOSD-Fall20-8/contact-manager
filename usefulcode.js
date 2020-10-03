@@ -748,25 +748,34 @@ function goToHome(){
 }
 
 function buildMessageTable(){
-  var messagePayload = '{"recipient_id" : "' + window.sessionStorage.getItem("user_id") + '"}';
+  var unreadPayload = '{"recipient_id" : "' + window.sessionStorage.getItem("user_id") + '","status": "0"}';
+  var readPayload = '{"recipient_id" : "' + window.sessionStorage.getItem("user_id") + '","status": "1"}';
   var url = urlBegin + '/retrieveMessages' + urlEnding;
-
   var request = new XMLHttpRequest();
   request.open("POST", url, false);
   request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
   try{
-    request.send(messagePayload);
-
+    request.send(unreadPayload);
     var jsonObject = JSON.parse(request.responseText);
+    var unreadArr = jsonObject.info.messages;
 
-    var messagesArr = jsonObject.info.messages;
+    request = new XMLHttpRequest();
+   request.open("POST", url, false);
+   request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    request.send(readPayload);
+    var jsonObject = JSON.parse(request.responseText);
+    var readArr = jsonObject.info.messages;
   }
 
   catch(err){
+    alert(err);
   return false;
 }
 
+ var messagesArr = [];
+ messagesArr = messagesArr.concat(unreadArr);
+ messagesArr = messagesArr.concat(readArr);
   var table = document.getElementById('inboxTable');
   table.style.display = "block";
 
@@ -780,18 +789,37 @@ function buildMessageTable(){
           var cell = document.createElement('td');
           senderName = getFriendName(value);
           cell.appendChild(document.createTextNode(senderName));
+          cell.style.color = "skyblue";
           row.appendChild(cell);
         }
         if(key=='message_text' ){
           var cell = document.createElement('td');
-          var preview = value.substr(0,15);
+          if(value.length > 15){
+            var preview = value.substr(0,12) + "...";
+          }
+          else{
+            var preview = value;
+          }
+
           cell.appendChild(document.createTextNode(preview));
+          cell.style.color = "lime";
           row.appendChild(cell);
         }
       });
+      if(messageInfo.status == '0'){
+        var cell = document.createElement('td');
+        var unread = document.createElement("img");
+        unread.setAttribute("value","");
+        unread.setAttribute("src","Images/unreadIcon.png")
+        unread.style.width = "8px";
+        unread.style.height = "8px";
+        cell.appendChild(unread);
+        row.appendChild(cell);
+      }
       row.addEventListener("click", function()
       {
         openDisplayMessageForm(messageInfo,senderName);
+        buildMessageTable();
       });
       tableBody.appendChild(row);
     });
@@ -814,8 +842,8 @@ function toggleInboxSidebar(){
     if(sidebar.style.width == "20px"){
       sidebar.style.width = "22%";
       sidebar.style.height = "33%";
-      sidebar.style.overflowY = "scroll";
-      sidebar.style.backgroundColor = "skyblue";
+    //  sidebar.style.overflowY = "scroll";
+      sidebar.style.backgroundColor = "#343837";
       sidebarButton.style.backgroundColor = "transparent";
       sidebarButton.setAttribute("src","Images/closeIcon.png");
       buildMessageTable();
@@ -868,7 +896,7 @@ function unreadMessages(){
   catch(err){
     return false;
   }
-  if(messagesArr){
+  if(messagesArr.length > 0){
     return true;
   }
   else{
@@ -909,21 +937,34 @@ function getFriendName(idToFind){
 }
 
 function openDisplayMessageForm(messageInfo,senderName){
+  markAsRead(messageInfo.message_id);
   document.getElementById("showMessageForm").style.display = "block";
   document.getElementById("senderInfo").innerHTML = ("Message from "+ senderName);
   document.getElementById("showMessageArea").innerHTML = messageInfo.message_text;
+  var deleteButton = document.getElementById("deleteMessageButton");
+  deleteButton.setAttribute("value","");
+  deleteButton.setAttribute("type", "image");
+  deleteButton.setAttribute("src","Images/deleteIcon.png")
+  deleteButton.style.width = "18px";
+  deleteButton.style.height = "18px";
+  deleteButton.addEventListener("click",function(){
+    deleteMessage(messageInfo.message_id);
+    closeMessageDisplay();
+    buildMessageTable();
+  });
+
   var contactInfo = getContactByID(messageInfo.contact_id,messageInfo.sender_id);
   var contactString = "";
   var importButton = document.getElementById("importButton");
   if(contactInfo){
-    document.getElementById("importContactInfo").innerHTML = contactInfo.first_name + " " + contactInfo.last_name;
-    document.getElementById("importContactLabel").innerHTML = "Import a Contact";
+    document.getElementById("importContactLabel").innerHTML = "Import Contact: "+contactInfo.first_name + " " + contactInfo.last_name;
     importButton.setAttribute("src","Images/importIcon.png");
    importButton.setAttribute("value","");
     importButton.setAttribute("type", "image");
     importButton.style.width = "36px";
     importButton.style.height = "36px";
     importButton.style.display = "block";
+    importButton.style.marginLeft = "132px";
       importButton.addEventListener("click",function(){
       closeMessageDisplay();
       document.getElementById("fname").value = contactInfo.first_name;
@@ -935,7 +976,6 @@ function openDisplayMessageForm(messageInfo,senderName){
       });
   }
   else{
-    document.getElementById("importContactInfo").innerHTML = "";
     document.getElementById("importContactLabel").innerHTML = "";
     importButton.style.display = "none";
   }
@@ -945,7 +985,7 @@ function closeMessageDisplay(){
     document.getElementById("showMessageForm").style.display = "none";
     document.getElementById("senderInfo").innerHTML = "";
     document.getElementById("showMessageArea").innerHTML = "";
-    document.getElementById("importContactInfo").innerHTML = "";
+    document.getElementById("importContactLabel").innerHTML = "";
 }
 
 function getContactByID(contact_id,user_id){
@@ -979,4 +1019,42 @@ function getContactByID(contact_id,user_id){
     return null;
   }
 
+}
+
+function markAsRead(message_id){
+  var markPayload = '{"message_id" : "' + message_id + '", "status" : "1"}';
+  var url = urlBegin + '/markMessage' + urlEnding;
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try{
+    request.send(markPayload);
+    var jsonObject = JSON.parse(request.responseText);
+  }
+  catch(err){
+    //error
+  }
+  if(jsonObject.error){
+    //error
+  }
+}
+
+function deleteMessage(message_id){
+  var payload = '{"message_id" : "' + message_id + '"}';
+  var url = urlBegin + '/deleteMessage' + urlEnding;
+  var request = new XMLHttpRequest();
+  request.open("POST", url, false);
+  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try{
+    request.send(payload);
+    var jsonObject = JSON.parse(request.responseText);
+  }
+  catch(err){
+    //error
+  }
+  if(jsonObject.error){
+    //error
+  }
 }

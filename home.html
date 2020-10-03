@@ -95,18 +95,22 @@
       -->
         <div id="showMessageArea"></div>
         <div id="importContactLabel"></div>
-        <div id="importContactInfo"></div>
         <input type="button" id="importButton"></input>
-        <button id ="closeMessageButton" type="reset" class="btn cancel" onclick="return closeMessageDisplay()">Close</button>
+        <div id="messageButtons">
+          <input type="button" id="deleteMessageButton"></input>
+          <button id ="closeMessageButton" onclick="return closeMessageDisplay()">Close</button>
+        </div>
     </div>
 
     <div id="inboxSidebar" class="sidebar">
       <input id="inboxToggle" class="toggleButton" onclick="toggleInboxSidebar()"></input>
       <table id="inboxTable">
+        <!--
         <tr class="header" id="headers">
           <th style="width:8%;">From</th>
           <th style="width:8%;">Preview</th>
         </tr>
+      -->
       </table>
     </div>
 

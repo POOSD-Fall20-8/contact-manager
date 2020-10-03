@@ -521,7 +521,7 @@ function buildFriendsTable(){
     var messageButton = document.createElement('input');
     messageButton.setAttribute("value","");
     messageButton.setAttribute("type", "image");
-    messageButton.setAttribute("src","Images/messageIcon.png");
+    messageButton.setAttribute("src","Images/whiteMessageIcon.png");
     messageButton.style.width = "18px";
     messageButton.style.height = "18px";
     messageButton.onmouseover = function() {
@@ -541,7 +541,7 @@ function buildFriendsTable(){
     var deleteButton = document.createElement('input');
     deleteButton.setAttribute("value","");
     deleteButton.setAttribute("type", "image");
-    deleteButton.setAttribute("src","Images/deleteIcon.png")
+    deleteButton.setAttribute("src","Images/whiteDeleteIcon.png")
     deleteButton.style.width = "18px";
     deleteButton.style.height = "18px";
     deleteButton.onmouseover = function() {

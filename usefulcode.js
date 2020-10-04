@@ -901,6 +901,10 @@ function buildMessageTable(){
         cell.appendChild(unread);
         row.appendChild(cell);
       }
+      else{
+        var cell = document.createElement('td');
+        row.appendChild(cell);
+      }
       row.addEventListener("click", function()
       {
         openDisplayMessageForm(messageInfo,senderName);
@@ -933,7 +937,7 @@ function toggleInboxSidebar(){
     var sidebarButton = document.getElementById("inboxToggle");
     var sidebarTable = document.getElementById("inboxTable");
     if(sidebar.style.width == "20px"){
-      sidebar.style.width = "230px";
+      sidebar.style.width = "245px";
       sidebar.style.height = "180px";
      // sidebar.style.overflowY = "scroll";
       sidebar.style.backgroundColor = "#343837";

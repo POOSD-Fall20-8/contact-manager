@@ -7,8 +7,14 @@ function createLogin() {
 
   var user = document.getElementById("loginName").value;
   var pass = document.getElementById("loginPassword").value;
+  var pass2 = document.getElementById("passwordConfirm").value;
   var firstName = document.getElementById("firstName").value;
   var lastName = document.getElementById("lastName").value;
+
+  if(pass != pass2){
+      document.getElementById("createResult").innerHTML = "Passwords Do Not Match";
+      return false;
+  }
   var hashedpass = md5( pass );
 
   document.getElementById("createResult").innerHTML = "";
@@ -574,7 +580,7 @@ function buildFriendsTable(){
     row.appendChild(deleteButton);
     tableBody.appendChild(row);
   });
-  if (table.childNodes.length > 2){
+  if (table.childNodes.length > 3){
       table.replaceChild(tableBody,table.childNodes[table.childNodes.length-1]);
   }
   else{
@@ -616,6 +622,12 @@ function openMessageForm(friend_info){
     document.getElementById("friendID").value = friend_info.user_id;
     document.getElementById("friendInfo").innerHTML = ("Send message to "+ friend_info.login)
   //  friend_info.first_name + " " + friend_info.last_name);
+  document.getElementById("attachContactBar").onkeypress = function(e) {
+    var key = e.charCode || e.keyCode || 0;
+    if (key == 13) {
+      e.preventDefault();
+    }
+  }
 }
 
 function submitMessageForm(){
@@ -630,7 +642,6 @@ function submitMessageForm(){
     messagePayload += '"contact_id" : "'+attachID+ '",';
   }
   messagePayload+='"message_text" : "'+document.getElementById("messageBox").value+'"}';
-  closeMessageForm();
   var url = urlBegin + '/sendMessage' + urlEnding;
   var request = new XMLHttpRequest();
   request.open("POST", url, false);
@@ -643,18 +654,38 @@ function submitMessageForm(){
     error = jsonObject.error;
     if(error == "")
     {
-      //success
+        var statusMessage = document.getElementById("messageSendResult");
+        statusMessage.style.color = "blue";
+        statusMessage.innerHTML = "Message Sent";
+        setTimeout(function(){
+          statusMessage.style.color = "transparent";
+          statusMessage.innerHTML = "Result Placeholder";
+          closeMessageForm();
+        } , 1500);
       return false;
     }
     else{
-      //do whatever
+      var statusMessage = document.getElementById("messageSendResult");
+      statusMessage.style.color = "red";
+      statusMessage.innerHTML = "Failed to Send";
+      setTimeout(function(){
+        statusMessage.style.color = "transparent";
+        statusMessage.innerHTML = "Result Placeholder";
+        closeMessageForm();
+      } , 1500);
       return false;
     }
-
   }
 
-  catch(err)
-  {
+  catch(err){
+    var statusMessage = document.getElementById("messageSendResult");
+    statusMessage.style.color = "red";
+    statusMessage.innerHTML = "Failed to Send";
+    setTimeout(function(){
+      statusMessage.style.color = "transparent";
+      statusMessage.innerHTML = "Result Placeholder";
+      closeMessageForm();
+    } , 1500);
     return false;
   }
 }
@@ -743,14 +774,44 @@ function addFriend(){
       if(error == ""){
         //success
         buildFriendsTable();
+        var statusMessage = document.getElementById("friendAddResult");
+        statusMessage.style.color = "blue";
+        statusMessage.innerHTML = "Friend Added";
+        setTimeout(function(){
+                statusMessage.style.color = "transparent";
+                statusMessage.innerHTML = "Result Placeholder";
+        } , 3000);
         return false;
       }
       else{
+        var statusMessage = document.getElementById("friendAddResult");
+        statusMessage.style.color = "red";
+        if(error == "Already Friends" || error == "No Users Found"){
+          statusMessage.innerHTML = error;
+        }
+        else{
+          statusMessage.innerHTML = "Error";
+        }
+        setTimeout(function(){
+                statusMessage.style.color = "transparent";
+                statusMessage.innerHTML = "placeholder";
+        } , 3000);
         return false;
       }
     }
     catch(err){
-      alert(err);
+      var statusMessage = document.getElementById("friendAddResult");
+      statusMessage.style.color = "red";
+      if(error == "Already Friends" || error == "No Users Found"){
+        statusMessage.innerHTML = error;
+      }
+      else{
+        statusMessage.innerHTML = "Error";
+      }
+      setTimeout(function(){
+              statusMessage.style.color = "transparent";
+              statusMessage.innerHTML = "placeholder";
+      } , 3000);
       return false;
     }
   }

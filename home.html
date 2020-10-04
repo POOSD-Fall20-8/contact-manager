@@ -18,8 +18,11 @@
     <br><br><br><br>
 
     <div id="friendPanel" class="friendPanel">
+      <h1>Friends List</h1>
+      <h1 id="friendAddResult">Result Message</h1>
       <table id="friendTable">
-        <th>Friends List</th>
+    <!--    <tr style="width:100%"><td style="width:100%" id="friendAddResult"></td></tr> -->
+     <!--<tr style="width:100%" ><td  id="friendAddResult">Result message</td></tr>-->
       </table>
       <input id="friendInput" type="text" onkeydown = "addFriend();" placeholder="Add a Friend!">
     </div>
@@ -79,6 +82,7 @@
       <form class="form-container">
         <input type="hidden" id="friendID">
         <h1 id="friendInfo"></h1>
+        <h1 id="messageSendResult">Placeholder></h1>
         <textarea id="messageBox" name="messageBox" rows="10" cols="30" placeholder="Enter a message"></textarea>
         <div id="attachContactLabel">Attach a Contact</div>
         <div id="attachContactInputs">

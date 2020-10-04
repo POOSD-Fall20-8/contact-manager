@@ -523,7 +523,7 @@ div {
  background-color: #111;
 }
 
-.friendPanel th {
+.friendPanel h1 {
  font-size: 16px;
  color: lime;
 }
@@ -531,6 +531,10 @@ div {
 .friendPanel tr {
   font-size: 12px;
   color: skyblue;
+}
+
+.friendPanel table{
+  width:100%;
 }
 /*
 .friendPanel input[type=text]:focus {
@@ -544,6 +548,15 @@ div {
 .friendPanel input[type=text] {
   width: 80%;
 }
+
+#friendAddResult{
+  font-family: cursive;
+  width: 100%;
+  background-color: transparent;
+  font-size: 16px;
+  color: transparent;
+}
+
 #sendMessageForm {
   width: 300px;
   display: none;
@@ -554,6 +567,15 @@ div {
   border: 3px solid #03913e;
   z-index: 9;
   box-shadow: 0 0 50px #39ff14;
+}
+
+#messageSendResult{
+  display: block;
+  font-family: cursive;
+  width: 100%;
+  background-color: transparent;
+  font-size: 16px;
+  color: transparent;
 }
 
 #showMessageForm {

@@ -554,7 +554,7 @@ div {
   width: 100%;
   background-color: transparent;
   font-size: 16px;
-  color: transparent;
+  visibility: hidden;
 }
 
 #sendMessageForm {
@@ -575,7 +575,7 @@ div {
   width: 100%;
   background-color: transparent;
   font-size: 16px;
-  color: transparent;
+  visibility: hidden;
 }
 
 #showMessageForm {

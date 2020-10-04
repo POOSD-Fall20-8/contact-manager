@@ -656,9 +656,10 @@ function submitMessageForm(){
     {
         var statusMessage = document.getElementById("messageSendResult");
         statusMessage.style.color = "blue";
+        statusMessage.style.visibility = "visible";
         statusMessage.innerHTML = "Message Sent";
         setTimeout(function(){
-          statusMessage.style.color = "transparent";
+          statusMessage.style.visibility = "hidden";
           statusMessage.innerHTML = "Result Placeholder";
           closeMessageForm();
         } , 1500);
@@ -667,9 +668,10 @@ function submitMessageForm(){
     else{
       var statusMessage = document.getElementById("messageSendResult");
       statusMessage.style.color = "red";
+      statusMessage.style.visibility = "visible";
       statusMessage.innerHTML = "Failed to Send";
       setTimeout(function(){
-        statusMessage.style.color = "transparent";
+        statusMessage.style.visibility = "hidden";
         statusMessage.innerHTML = "Result Placeholder";
         closeMessageForm();
       } , 1500);
@@ -680,9 +682,10 @@ function submitMessageForm(){
   catch(err){
     var statusMessage = document.getElementById("messageSendResult");
     statusMessage.style.color = "red";
+    statusMessage.style.visibility = "visible";
     statusMessage.innerHTML = "Failed to Send";
     setTimeout(function(){
-      statusMessage.style.color = "transparent";
+      statusMessage.style.visibility = "hidden";
       statusMessage.innerHTML = "Result Placeholder";
       closeMessageForm();
     } , 1500);
@@ -776,9 +779,10 @@ function addFriend(){
         buildFriendsTable();
         var statusMessage = document.getElementById("friendAddResult");
         statusMessage.style.color = "blue";
+        statusMessage.style.visibility = "visible";
         statusMessage.innerHTML = "Friend Added";
         setTimeout(function(){
-                statusMessage.style.color = "transparent";
+                statusMessage.style.visibility = "hidden";
                 statusMessage.innerHTML = "Result Placeholder";
         } , 3000);
         return false;
@@ -786,6 +790,7 @@ function addFriend(){
       else{
         var statusMessage = document.getElementById("friendAddResult");
         statusMessage.style.color = "red";
+        statusMessage.style.visibility = "visible";
         if(error == "Already Friends" || error == "No Users Found"){
           statusMessage.innerHTML = error;
         }
@@ -793,7 +798,7 @@ function addFriend(){
           statusMessage.innerHTML = "Error";
         }
         setTimeout(function(){
-                statusMessage.style.color = "transparent";
+                statusMessage.style.visibility = "hidden";
                 statusMessage.innerHTML = "placeholder";
         } , 3000);
         return false;
@@ -802,6 +807,7 @@ function addFriend(){
     catch(err){
       var statusMessage = document.getElementById("friendAddResult");
       statusMessage.style.color = "red";
+      statusMessage.style.visibility = "visible";
       if(error == "Already Friends" || error == "No Users Found"){
         statusMessage.innerHTML = error;
       }
@@ -809,7 +815,7 @@ function addFriend(){
         statusMessage.innerHTML = "Error";
       }
       setTimeout(function(){
-              statusMessage.style.color = "transparent";
+              statusMessage.style.visibility = "hidden";
               statusMessage.innerHTML = "placeholder";
       } , 3000);
       return false;

@@ -757,14 +757,14 @@ function buildMessageTable(){
   try{
     request.send(unreadPayload);
     var jsonObject = JSON.parse(request.responseText);
-    var unreadArr = jsonObject.info.messages;
+    var unreadArr = jsonObject.info.messages.reverse();
 
     request = new XMLHttpRequest();
    request.open("POST", url, false);
    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     request.send(readPayload);
     var jsonObject = JSON.parse(request.responseText);
-    var readArr = jsonObject.info.messages;
+    var readArr = jsonObject.info.messages.reverse();
   }
 
   catch(err){

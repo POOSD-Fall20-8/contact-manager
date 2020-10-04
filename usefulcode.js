@@ -15,6 +15,10 @@ function createLogin() {
       document.getElementById("createResult").innerHTML = "Passwords Do Not Match";
       return false;
   }
+  if(pass == ""){
+    document.getElementById("createResult").innerHTML = "Must Set Password";
+    return false;
+  }
   var hashedpass = md5( pass );
 
   document.getElementById("createResult").innerHTML = "";

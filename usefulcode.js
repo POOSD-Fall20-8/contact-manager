@@ -381,18 +381,22 @@ function updateAccount() {
 
 function populateAccountFields(){
   var oldLogin = window.sessionStorage.getItem("login");
-  document.getElementById("login").placeholder = oldLogin;
+  document.getElementById("login").value = oldLogin;
+  document.getElementById("login").placeholder = "Login";
+  document.getElementById("firstName").placeholder = "First Name";
+  document.getElementById("lastName").placeholder = "Last Name";
   var oldFirst = window.sessionStorage.getItem("first_name");
   if(oldFirst){
-    document.getElementById("firstName").placeholder = oldFirst;
+    document.getElementById("firstName").value = oldFirst;
   }
   var oldLast = window.sessionStorage.getItem("last_name");
   if(oldLast){
-    document.getElementById("lastName").placeholder = oldLast;
+    document.getElementById("lastName").value = oldLast;
   }
 }
 
 function submitAccountUpdate() {
+    document.getElementById("updateResult").style.color = "red";
     var user_id = window.sessionStorage.getItem("user_id");
     var first_name = document.getElementById("firstName").value;
     var last_name = document.getElementById("lastName").value;
@@ -406,26 +410,26 @@ function submitAccountUpdate() {
       document.getElementById("updateResult").innerHTML = "Current password incorrect";
       return false;
     }
-    if(first_name == ""){
-      first_name = window.sessionStorage.getItem("first_name");
-    }
-    if(last_name == ""){
-      last_name = window.sessionStorage.getItem("last_name");
-    }
     if(login == ""){
-      login = window.sessionStorage.getItem("login");
+      document.getElementById("updateResult").innerHTML = "Login Is Required";
+      return false;
     }
-
     if ((password != password2)){
       document.getElementById("updateResult").innerHTML = "Passwords must match";
       return false;
     }
+
+    window.sessionStorage.setItem("first_name",first_name);
+    window.sessionStorage.setItem("last_name",last_name);
+    window.sessionStorage.setItem("login",login);
+
     if(password == ""){
       var hashedpass = hashOldPass;
     }
     else{
       var hashedpass = md5(password);
     }
+
     var payload = '{"login" : "'+login+'","first_name" : "' + first_name + '", "last_name" : "' + last_name +
      '", "password" : "' + hashedpass + '", "user_id" : "' + user_id+  '"}';
     var url = urlBegin + '/updateUser' + urlEnding;
@@ -440,7 +444,9 @@ function submitAccountUpdate() {
       error = jsonObject.error;
 
       if(error == ""){
-        window.location.href = "home.html";
+        document.getElementById("updateResult").innerHTML = "Account Updated";
+        document.getElementById("updateResult").style.color = "lime";
+        setTimeout(function(){window.location.href="home.html"} , 1500);
         return false;
       }
       else{

@@ -26,7 +26,14 @@
 				returnWithInfo(buildUserJSON($login,$first_name,$last_name,$user_id));
 			}
 			else {
-				returnWithError("Could Not Match Record");
+				$sql = "SELECT user_id FROM users WHERE user_id='".$user_id."'";
+				$result = $conn->query($sql);
+				if ($result->num_rows > 0){
+						returnWithInfo(buildUserJSON($login,$first_name,$last_name,$user_id));
+				}
+				else{
+					returnWithError("Could Not Match Record");
+				}
 			}
     $conn->close();
 	}

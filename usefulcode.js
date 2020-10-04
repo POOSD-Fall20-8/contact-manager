@@ -380,6 +380,15 @@ function updateAccount() {
 }
 
 function populateAccountFields(){
+  //makes pressing enter in the form submit it correctly
+  document.getElementById("updateBox").onkeypress = function(e) {
+    var key = e.charCode || e.keyCode || 0;
+    if (key == 13) {
+      submitAccountUpdate();
+      e.preventDefault();
+    }
+  }
+
   var oldLogin = window.sessionStorage.getItem("login");
   document.getElementById("login").value = oldLogin;
   document.getElementById("login").placeholder = "Login";

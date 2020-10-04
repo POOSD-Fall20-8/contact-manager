@@ -938,7 +938,7 @@ function toggleInboxSidebar(){
     var sidebarTable = document.getElementById("inboxTable");
     if(sidebar.style.width == "20px"){
       sidebar.style.width = "245px";
-      sidebar.style.height = "180px";
+      sidebar.style.height = "120px";
      // sidebar.style.overflowY = "scroll";
       sidebar.style.backgroundColor = "#343837";
       sidebarButton.style.backgroundColor = "transparent";
